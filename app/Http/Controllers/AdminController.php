@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Intervention\Image\Laravel\Facades\Image;
 
 class AdminController extends Controller
 {
@@ -22,6 +25,37 @@ class AdminController extends Controller
     public function categories_add()
     {
         return view('admin.category-add');
+    }
+
+    public function category_store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:categories,slug',
+            'image' => 'mimes:jpg,png,jpeg|max:2048'
+        ]);
+
+        $category = new Category();
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $image = $request->file('image');
+        $file_extension = $request->file('image')->extension();
+        $file_name = Carbon::now()->timestamp.'.'.$file_extension;
+        $this->GenerateCategoryThumbailsImage($image, $file_name);
+        $category->image = $file_name;
+        $category->save();
+
+        return redirect()->route('admin.categories')->with('status', 'La categoria se creo con exito!');
+    }
+
+    public function GenerateCategoryThumbailsImage($image, $imageName)
+    {
+        $destinationPath = public_path('uploads/categories');
+        $img = Image::read($image->path());
+        $img->cover(124,124,"top");
+        $img->resize(124,124, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($destinationPath.'/'.$imageName);
     }
 
 }

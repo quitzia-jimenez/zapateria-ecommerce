@@ -124,29 +124,29 @@
                     <img src="{{ asset('recursos/admin/img/profile/user-1.jpg') }}" alt="" width="35" height="35" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                    <div class="message-body">
-                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                        <i class="ti ti-user fs-6"></i>
-                        <p class="mb-0 fs-3">My Profile</p>
-                        </a>
-                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                        <i class="ti ti-mail fs-6"></i>
-                        <p class="mb-0 fs-3">My Account</p>
-                        </a>
-                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                        <i class="ti ti-list-check fs-6"></i>
-                        <p class="mb-0 fs-3">My Task</p>
-                        </a>
+                        <div class="message-body">
+                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                            <i class="ti ti-user fs-6"></i>
+                            <p class="mb-0 fs-3">My Profile</p>
+                            </a>
+                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                            <i class="ti ti-mail fs-6"></i>
+                            <p class="mb-0 fs-3">My Account</p>
+                            </a>
+                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                            <i class="ti ti-list-check fs-6"></i>
+                            <p class="mb-0 fs-3">My Task</p>
+                            </a>
 
-                        <form method="POST" action="{{route('logout')}}" id="logout-form">
-                            @csrf
-                            <a href="{{route('logout')}}" class="btn btn-outline-primary mx-3 mt-2 d-block" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                Logout</a>
+                            <form method="POST" action="{{route('logout')}}" id="logout-form">
+                                @csrf
+                                <a href="{{route('logout')}}" class="btn btn-outline-primary mx-3 mt-2 d-block" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                    Logout</a>
 
-                        </form>
-                        
+                            </form>
+                            
 
-                    </div>
+                        </div>
                     </div>
                 </li>
                 </ul>
@@ -159,12 +159,14 @@
             <!--  main container end -->
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   
     <script src="{{asset('recursos/admin/libs/jquery/dist/jquery.min.js')}}"></script>
     <script src="{{asset('recursos/admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('recursos/admin/js/sidebarmenu.js')}}"></script>
     <script src="{{asset('recursos/admin/js/app.min.js')}}"></script>
     <script src="{{asset('recursos/admin/libs/simplebar/dist/simplebar.js')}}"></script>
+
+    @stack('scripts')
     </body>
 
 </html>
