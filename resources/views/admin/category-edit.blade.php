@@ -3,25 +3,31 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Agregar categoria</h5>
+            <h5 class="card-title fw-semibold mb-4">Editar categoria</h5>
             <div class="card">
                 <div class="card-body">
                   <form action="{{route('admin.category.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="mb-3">
                       <label for="name" class="form-label">Nombre de Categoria</label>
-                      <input id="name" name="name" type="text" placeholder="Nombre de categoria" class="form-control"  tabindex="0" value="{{old('name')}}"  aria-required="true" required=""> 
+                      <input id="name" name="name" type="text" placeholder="Nombre de categoria" class="form-control"  tabindex="0" value="{{$category->name}}"  aria-required="true" required=""> 
                     </div>
                     @error('name') <span class="alert alert-danger text-danger">{{ $message }}</span> @enderror
 
                     <div class="mb-3">
                       <label for="slug" class="form-label">Descripcion</label>
-                      <input id="slug" class="form-control" type="text" placeholder="Slug categoria" name="slug" tabindex="0" value="{{old('slug')}}"  aria-required="true" required="">
+                      <input id="slug" class="form-control" type="text" placeholder="Slug categoria" name="slug" tabindex="0" value="{{$category->slug}}"  aria-required="true" required="">
                     </div>
                     @error('slug') <span class="text-danger">{{ $message }}</span> @enderror
 
                     <div class="mb-3">
-                        <label for="image"></label>
+                        @if($category->image)
+                        <div class="item" id="imgpreview">
+                            <img src="{{asset('uploads/categories')}}/{{$category->image}}" alt="#" class="effect8">
+                        </div>
+
+                        @endif
                         <div id="upload-file">
                             <label for="myFile">
                                 <span>
