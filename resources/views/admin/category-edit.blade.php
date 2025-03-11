@@ -6,9 +6,10 @@
             <h5 class="card-title fw-semibold mb-4">Editar categoria</h5>
             <div class="card">
                 <div class="card-body">
-                  <form action="{{route('admin.category.store')}}" method="POST" enctype="multipart/form-data">
+                  <form action="{{route('admin.category.update')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="id" value="{{$category->id}}">
                     <div class="mb-3">
                       <label for="name" class="form-label">Nombre de Categoria</label>
                       <input id="name" name="name" type="text" placeholder="Nombre de categoria" class="form-control"  tabindex="0" value="{{$category->name}}"  aria-required="true" required=""> 

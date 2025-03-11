@@ -80,13 +80,14 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <form action="#" method="POST">
+                                        <form action="{{route('admin.category.delete',['id'=>$category->id])}}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <div class="list-icon-function">
-                                                <a href="#">
-                                                <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
-                                                </a>
+                                            <div class="list-icon-function delete ">
+                                                <button type="submit" class="btn btn-link p-0 m-0" style="border: none; background: none;">
+                                                    <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                                                </button>
+                                                
                                             </div>
                                                 
                                             
@@ -106,3 +107,26 @@
 </div>
     
 @endsection
+
+@push('scripts')
+<script>
+    $(function(){
+        $('.delete').on('click', function(e){
+            e.preventDefault();
+            var form = $(this).closest('form');
+            swal({
+                title: "¿Estás seguro?",
+                text: "Una vez eliminado, no podrás recuperar este archivo!",
+                icon: "warning",
+                buttons: ["Cancelar", "Sí, eliminar!"],
+                confirmButtonColor: '#d33',
+            }).then(function(result){
+                    if(result){
+                        form.submit();
+                    }
+
+                });
+            });
+        });
+</script>
+@endpush

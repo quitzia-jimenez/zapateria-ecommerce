@@ -165,7 +165,7 @@
     <script src="{{asset('recursos/admin/js/sidebarmenu.js')}}"></script>
     <script src="{{asset('recursos/admin/js/app.min.js')}}"></script>
     <script src="{{asset('recursos/admin/libs/simplebar/dist/simplebar.js')}}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     @stack('scripts')
     </body>
 
