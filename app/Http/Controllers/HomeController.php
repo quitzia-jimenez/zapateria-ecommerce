@@ -10,4 +10,17 @@ class HomeController extends Controller
     {
         return view('index');
     }
+
+    public function nosotros(){
+        return view('nosotros');
+    }
+
+    public function contact(){
+        return view('contact');
+    }
+
+    public function catalogo(){
+        return view('catalogo');
+    }
+
 }

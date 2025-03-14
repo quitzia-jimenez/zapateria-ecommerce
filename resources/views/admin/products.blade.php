@@ -62,6 +62,9 @@
                                         <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">Cantidad</h6>
                                         </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Visualizar</h6>
+                                        </th>
 
                                         <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">Editar</h6>
@@ -109,12 +112,19 @@
                                             <td>
                                                 <div class="list-icon-function">
                                                     <a href="#">
+                                                    <i class="fa-solid fa-eye" style="color: #5074e2;"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="list-icon-function">
+                                                    <a href="{{route('admin.product.edit', ['id'=>$product->id])}}">    
                                                     <i class="fa-solid fa-pen" style="color: #FFD43B;"></i>
                                                     </a>
                                                 </div>
                                             </td>
                                             <td>
-                                                <form action="#" method="POST">
+                                                <form action="{{route('admin.product.delete',['id'=>$product->id])}}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <div class="list-icon-function delete ">
@@ -149,3 +159,26 @@
 </div>
     
 @endsection
+
+@push('scripts')
+<script>
+    $(function(){
+        $('.delete').on('click', function(e){
+            e.preventDefault();
+            var form = $(this).closest('form');
+            swal({
+                title: "¿Estás seguro?",
+                text: "Una vez eliminado, no podrás recuperar este archivo!",
+                icon: "warning",
+                buttons: ["Cancelar", "Sí, eliminar!"],
+                confirmButtonColor: '#d33',
+            }).then(function(result){
+                    if(result){
+                        form.submit();
+                    }
+
+                });
+            });
+        });
+</script>
+@endpush

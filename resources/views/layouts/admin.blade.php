@@ -15,6 +15,7 @@
 
 
     <link rel="stylesheet" href="{{asset('recursos/admin/css/styles.min.css')}}" />
+    @stack('styles')
     </head>
 
     <body>

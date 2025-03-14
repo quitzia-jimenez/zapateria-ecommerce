@@ -8,7 +8,7 @@
         <h1>Camina con estilo y confort</h1>
         <p>Descubre nuestra nueva colección de zapatos para cada ocasión. Diseño, calidad y confort en cada paso.</p>
         <div class="hero-buttons">
-          <a href="#" class="btn btn-primary">Comprar ahora</a>
+          <a href="{{route('shop.index')}}" class="btn btn-primary">Comprar ahora</a>
           <a href="#" class="btn btn-outline">Ver colecciones</a>
         </div>
       </div>
@@ -136,7 +136,7 @@
         </div>
       </div>
       <div class="text-center mt-5">
-        <a href="#" class="btn btn-primary">Ver Más Productos</a>
+        <a href="{{route('shop.index')}}" class="btn btn-primary">Ver Más Productos</a>
       </div>
     </div>
   </section>
@@ -156,7 +156,7 @@
               alt="Hombres" class="category-img">
             <div class="category-overlay">
               <h3 class="category-name">Hombres</h3>
-              <a href="#" class="category-btn">Ver Colección</a>
+              <a href="{{route('shop.index')}}" class="category-btn">Ver Colección</a>
             </div>
           </div>
         </div>
@@ -167,7 +167,7 @@
               alt="Mujeres" class="category-img">
             <div class="category-overlay">
               <h3 class="category-name">Mujeres</h3>
-              <a href="#" class="category-btn">Ver Colección</a>
+              <a href="{{route('shop.index')}}" class="category-btn">Ver Colección</a>
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@
               class="category-img">
             <div class="category-overlay">
               <h3 class="category-name">Niños</h3>
-              <a href="#" class="category-btn">Ver Colección</a>
+              <a href="{{route('shop.index')}}" class="category-btn">Ver Colección</a>
             </div>
           </div>
         </div>

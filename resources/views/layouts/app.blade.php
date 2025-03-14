@@ -24,7 +24,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   
-  <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/indexcss.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/index.css')}}">
+  @stack('styles')
 
 </head>
 
@@ -43,19 +44,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="{{route('home.index')}}">Inicio</a>
+              <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" href="{{route('home.index')}}">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./nosotros.html">Nosotros</a>
+              <a class="nav-link {{ request()->routeIs('home.nosotros') ? 'active' : '' }}" href="{{route('home.nosotros')}}">Nosotros</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./contacto.html">Contacto</a>
+              <a class="nav-link {{ request()->routeIs('home.contact') ? 'active' : '' }}" href="{{route('home.contact')}}">Contacto</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./catalogo.html">Catalogo</a>
+              <a class="nav-link {{ request()->routeIs('shop.index') ? 'active' : '' }}" href="{{route('shop.index')}}">Catalogo</a>
             </li>
-
-            
           </ul>
           <div class="navbar-icons">
             <a href="#"><i class="fas fa-search"></i></a>
@@ -115,7 +114,7 @@
                 <a href="#" class="item-anchor" style="color: white">Principal</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor" style="color: white">Catalogo</a>
+                <a href="{{route('shop.index')}}" class="item-anchor" style="color: white">Catalogo</a>
               </li>
               <li class="menu-item">
                 <a href="#" class="item-anchor" style="color: white">Nosotros</a>
@@ -159,7 +158,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="{{asset('recursos/user/js/indexjs.js')}}"></script>
-
+  @stack('scripts')
 
 </body>
 
