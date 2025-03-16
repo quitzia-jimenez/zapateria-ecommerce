@@ -63,6 +63,9 @@
                                             <h6 class="fw-semibold mb-0">Cantidad</h6>
                                         </th>
                                         <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Tallas</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">Visualizar</h6>
                                         </th>
 
@@ -109,6 +112,7 @@
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0 fs-4">{{$product->quantity}}</h6>
                                             </td>
+                                            
                                             <td>
                                                 <div class="list-icon-function">
                                                     <a href="#">

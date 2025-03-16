@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@push('styles')
+@section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/catalogocss.css')}}">
 
-@endpush
+@endsection
 
 @section('content')
  <!-- Hero Banner -->
@@ -129,8 +129,23 @@
                           <a href="{{route('shop.product.details',['product_slug'=>$product->slug])}}" data-bs-toggle="tooltip" title="Vista rápida"><i class="fas fa-eye"></i></a>
                           <a href="#" data-bs-toggle="tooltip" title="Añadir a favoritos"><i
                               class="fas fa-heart"></i></a>
-                          <a href="#" data-bs-toggle="tooltip" title="Añadir al carrito"><i
-                              class="fas fa-shopping-cart"></i></a>
+
+                          @if(Cart::instance('cart')->content()->where('id', $product->id)->count() > 0)
+                          <a href="{{route('cart.index')}}" title="Ir al carrito"><i
+                            class="fas fa-shopping-cart"></i></a>
+                          @else
+                          <form name="addtocart-form" method="POST" action="{{route('cart.add')}}">
+                            @csrf
+
+                            <input type="hidden" name="id" value="{{$product->id}}">
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="name" value="{{$product->name}}">
+                            <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+                            <button type="submit"   data-bs-toggle="tooltip" title="Añadir al carrito"><i class="fa-solid fa-cart-plus"></i></button>
+                            
+                            
+                          </form>
+                          @endif
                         </div>
                       </div>
                     </div>

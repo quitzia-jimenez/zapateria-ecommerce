@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -13,8 +14,16 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/nosotros', [HomeController::class, 'nosotros'])->name('home.nosotros');
 Route::get('/contacto', [HomeController::class, 'contact'])->name('home.contact');
+
 Route::get('/catalogo', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/catalogo/{product_slug}',[ShopController::class,'product_details'])->name('shop.product.details');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add_to_cart'])->name('cart.add');
+Route::put('/cart/increse/{rowId}', [CartController::class, 'increse_cart_quantity'])->name('cart.qty.increse');
+Route::put('/cart/decrese/{rowId}', [CartController::class, 'decrese_cart_quantity'])->name('cart.qty.decrese');
+Route::delete('/cart/remove/{rowId}', [CartController::class, 'remove_item'])->name('cart.item.remove');
+Route::delete('/cart/clear', [CartController::class, 'empty_cart'])->name('cart.empty');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');

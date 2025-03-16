@@ -25,7 +25,7 @@
 
   
   <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/index.css')}}">
-  @stack('styles')
+  @yield('styles')
 
 </head>
 
@@ -67,7 +67,11 @@
             @endguest
 
             <a href="#"><i class="fas fa-heart"></i></a>
-            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i>
+              @if (Cart::instance('cart')->count() > 0)
+              <span class="cart-ammount d-block position-absolute js-cart-items-count">{{Cart::instance('cart')->count()}}</span>
+              @endif
+            </a>
           </div>
         </div>
       </div>
@@ -158,7 +162,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="{{asset('recursos/user/js/indexjs.js')}}"></script>
+  @yield('scripts')
+
   @stack('scripts')
+  
 
 </body>
 
