@@ -71,11 +71,11 @@
                                 </a>
                                 </li>
                             <li class="sidebar-item">
-                            <a class="sidebar-link" href="#" aria-expanded="false">
+                            <a class="sidebar-link" href="{{route('admin.coupons')}}" aria-expanded="false">
                                 <span>
                                 <i class="ti ti-file-description"></i>
                                 </span>
-                                <span class="hide-menu">Pedidos</span>
+                                <span class="hide-menu">Cupones</span>
                             </a>
                             </li>
                             
