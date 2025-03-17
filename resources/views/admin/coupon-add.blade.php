@@ -16,7 +16,7 @@
 
                     <label for="name" class="form-label">Tipo de cupon</label>
                     <div class="select flex-grow">
-                        <select class="" name="type">
+                        <select class="form-select" name="type">
                             <option value="">Select</option>
                             <option value="fixed">Fijo</option>
                             <option value="percent">Porcentaje</option>
