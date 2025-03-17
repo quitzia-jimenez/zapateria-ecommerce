@@ -156,8 +156,24 @@
 
                         
                         <a href="{{route('shop.product.details',['product_slug'=>$product->slug])}}" data-bs-toggle="tooltip" title="Vista rápida"><i class="fas fa-eye"></i></a>
-                        <a href="#" data-bs-toggle="tooltip" title="Añadir a favoritos"><i
-                            class="fas fa-heart"></i></a>
+
+                        @if(Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
+                        <form method="POST" action="{{route('wishlist.item.remove',['rowId'=>Cart::instance('wishlist')->content()->where('id', $product->id)->first()->rowId])}}">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit"   data-bs-toggle="tooltip" title="Eliminar de favoritos"><i class="fa-solid fa-heart" style="color: #d769a3;"></i></i></button>
+                        </form>
+                        @else
+                        <form action="{{route('wishlist.add')}}" method="POST">
+                          @csrf
+                          <input type="hidden" name="id" value="{{$product->id}}">
+                          <input type="hidden" name="quantity" value="1">
+                          <input type="hidden" name="name" value="{{$product->name}}">
+                          <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+                          <button type="submit"   data-bs-toggle="tooltip" title="Añadir a favoritos"><i class="fa-regular fa-heart" style="color: #d769a3;"></i></i></button>
+                          
+                        </form>
+                        @endif
 
                         @if(Cart::instance('cart')->content()->where('id', $product->id)->count() > 0)
                         <a href="{{route('cart.index')}}" title="Ir al carrito"><i

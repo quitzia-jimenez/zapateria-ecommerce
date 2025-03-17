@@ -66,7 +66,13 @@
             <span>{{Auth::user()->name}}</span>
             @endguest
 
-            <a href="#"><i class="fas fa-heart"></i></a>
+            <a href="{{route('wishlist.index')}}"><i class="fas fa-heart"></i>
+              @if(Cart::instance('wishlist')->count() > 0)
+              <span class="cart-ammount d-block position-absolute js-cart-items-count">{{ Cart::instance('wishlist')->count() }}</span>
+              @endif
+          </a>
+
+
             <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i>
               @if (Cart::instance('cart')->count() > 0)
               <span class="cart-ammount d-block position-absolute js-cart-items-count">{{Cart::instance('cart')->count()}}</span>

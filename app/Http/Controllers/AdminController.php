@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
@@ -330,6 +331,12 @@ class AdminController extends Controller
         }
         $product->delete();
         return redirect()->route('admin.products')->with('status', 'El producto se elimino con exito!');
+    }
+
+    public function coupons()
+    {
+        $coupons = Coupon::orderBy('id', 'DESC')->paginate(12);
+        return view ('admin.coupons', compact('coupons'));
     }
 }
 
