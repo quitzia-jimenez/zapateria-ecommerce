@@ -53,7 +53,7 @@
                                     <td>{{$order->orderItems->count()}}</td>
                                     <td>{{$order->delivered_date}}</td>
                                     <td>
-                                        <a href="{{route('user.order.details')}}" class="order-action"><i class="fas fa-eye"></i></a>
+                                        <a href="#" class="order-action"><i class="fas fa-eye"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
