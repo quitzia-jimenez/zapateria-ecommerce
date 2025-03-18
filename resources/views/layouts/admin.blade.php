@@ -71,12 +71,20 @@
                                 </a>
                                 </li>
                             <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('admin.coupons')}}" aria-expanded="false">
-                                <span>
-                                <i class="ti ti-file-description"></i>
-                                </span>
-                                <span class="hide-menu">Cupones</span>
-                            </a>
+                                <a class="sidebar-link" href="{{route('admin.coupons')}}" aria-expanded="false">
+                                    <span>
+                                    <i class="ti ti-file-description"></i>
+                                    </span>
+                                    <span class="hide-menu">Cupones</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{route('admin.orders')}}" aria-expanded="false">
+                                    <span>
+                                    <i class="ti ti-file-description"></i>
+                                    </span>
+                                    <span class="hide-menu">Pedidos</span>
+                                </a>
                             </li>
                             
                             <li class="nav-small-cap">

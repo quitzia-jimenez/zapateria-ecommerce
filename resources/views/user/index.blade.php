@@ -8,39 +8,10 @@
             <div class="col-lg-3">
                 <div class="slidebar-perfil-cliente">
                     <div class="avatar-perfil-cliente">
-                        <img src="https://i.pinimg.com/280x280_RS/92/41/93/924193fa4ed5f20e03c3c38f3e8a0553.jpg"
-                            alt="Foto de perfil">
-                        <h4>Quitzia Arely Jimenez Sánchez</h4>
-                        <p>Miembro desde: Enero 2023</p>
+                        <img src=#" alt="Foto de perfil">
+                        <h4>{{Auth::user()->name}}</h4>
                     </div>
-                    <ul class="menu-perfil-cliente">
-                        <li class="menu-perfil-cliente-item active" data-section="dashboard">
-                            <i class="fas fa-tachometer-alt"></i> Inicio
-                        </li>
-                        <li class="menu-perfil-cliente-item" data-section="orders">
-                            <i class="fas fa-shopping-bag"></i> Mis pedidos
-                        </li>
-                        <li class="menu-perfil-cliente-item" data-section="wishlist">
-                            <i class="fas fa-heart"></i> Lista de deseos
-                        </li>
-                        <li class="menu-perfil-cliente-item" data-section="address">
-                            <i class="fas fa-map-marker-alt"></i> Direcciones
-                        </li>
-                        <li class="menu-perfil-cliente-item" data-section="account">
-                            <i class="fas fa-user-edit"></i> Detalles de la cuenta
-                        </li>
-                        <li class="menu-perfil-cliente-item" data-section="notifications">
-                            <i class="fas fa-bell"></i> Notificaciones
-                        </li>
-
-                        <li><form method="POST" action="{{route('logout')}}" id="logout-form">
-                            @csrf
-                            <a href="{{route('logout')}}" class="text-decoration-none menu-perfil-cliente-item log-out  d-block" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt"></i>
-                                Cerrar Sesión</a>
-            
-                        </form></li>
-                    </ul>
+                    @include('user.account-nav')
                 </div>
             </div>
 
@@ -48,7 +19,7 @@
                 <div class="contenido-perfil-cliente" id="dashboard-section">
                     <div class="section-header">
                         <h2>Inicio</h2>
-                        <p>Bienvenida, Arely. Aquí puedes ver un resumen de tu actividad.</p>
+                        <p>Bienvenida, {{Auth::user()->name}}. Aquí puedes ver un resumen de tu actividad.</p>
                     </div>
                     <div class="inicio-stats-perfil-cliente">
                         <div class="row">
@@ -118,84 +89,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Orders Section -->
-                <div class="contenido-perfil-cliente hidden" id="orders-section">
-                    <div class="section-header">
-                        <h2>Mis Pedidos</h2>
-                        <p>Historial completo de tus compras.</p>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Pedido #</th>
-                                    <th>Fecha</th>
-                                    <th>Productos</th>
-                                    <th>Estado</th>
-                                    <th>Total</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#BO-1452</td>
-                                    <td>15 Feb, 2025</td>
-                                    <td>Zapato casual elegante (1), Tenis deportivo ligero (1)</td>
-                                    <td><span class="status-delivered">Entregado</span></td>
-                                    <td>$2,498.00</td>
-                                    <td>
-                                        <a href="#" class="order-action"><i class="fas fa-eye"></i></a>
-                                        <a href="#" class="order-action"><i class="fas fa-download"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#BO-1398</td>
-                                    <td>28 Ene, 2025</td>
-                                    <td>Zapato formal de piel (1)</td>
-                                    <td><span class="status-processing">En Proceso</span></td>
-                                    <td>$1,299.00</td>
-                                    <td>
-                                        <a href="#" class="order-action"><i class="fas fa-eye"></i></a>
-                                        <a href="#" class="order-action"><i class="fas fa-download"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#BO-1245</td>
-                                    <td>10 Dic, 2024</td>
-                                    <td>Zapatilla urbana trendy (1)</td>
-                                    <td><span class="status-delivered">Entregado</span></td>
-                                    <td>$1,199.00</td>
-                                    <td>
-                                        <a href="#" class="order-action"><i class="fas fa-eye"></i></a>
-                                        <a href="#" class="order-action"><i class="fas fa-download"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#BO-1187</td>
-                                    <td>15 Nov, 2024</td>
-                                    <td>Zapato casual elegante (1)</td>
-                                    <td><span class="status-delivered">Entregado</span></td>
-                                    <td>$1,299.00</td>
-                                    <td>
-                                        <a href="#" class="order-action"><i class="fas fa-eye"></i></a>
-                                        <a href="#" class="order-action"><i class="fas fa-download"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#BO-1076</td>
-                                    <td>2 Oct, 2024</td>
-                                    <td>Zapato formal de piel (1)</td>
-                                    <td><span class="status-cancelled">Cancelado</span></td>
-                                    <td>$1,499.00</td>
-                                    <td>
-                                        <a href="#" class="order-action"><i class="fas fa-eye"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
 
