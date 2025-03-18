@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <title>BOMU - Zapatos con Estilo</title>
@@ -173,7 +173,5 @@
 
   @stack('scripts')
   
-
 </body>
-
 </html>

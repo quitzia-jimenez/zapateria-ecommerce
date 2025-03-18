@@ -1,519 +1,680 @@
 @extends('layouts.app')
+
 @section('css')
-<link
-    href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Allura&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css"
+    integrity="sha512-okkLcBJE+U19Dpd0QdHA1wn4YY6rW3CwaxeLJT3Jmj9ZcNSbln/VYw8UdqXRIwLX7J8PmtHs0I/FPAhozFvXKg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-vo2FiyzIwWBRpD2M8f8+swDD8S/U+BhVf0A+VhC/9JSt+vT94HLdHoxz0FhpZn5TA+SXb7WlS4uLrNn1w7rDIw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-<link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/indexcss.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/swiper.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/custom.css')}}">
+  <!-- Custom CSS -->
+  <style>
+    :root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #f39c12;
+    --border-color: #e0e0e0;
+    --light-bg: #f8f9fa;
+    }
+
+    body {
+    background-color: var(--light-bg);
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+    font-size: 18px;
+    font-weight: bold;
+    }
+
+    .swiper-pagination-bullet-active {
+    background-color: var(--primary-color);
+    }
+
+    .product-gallery {
+    transition: all 0.3s ease;
+    }
+
+    .thumbnail-swiper .swiper-slide {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    }
+
+    .thumbnail-swiper .swiper-slide:hover {
+    opacity: 1;
+    }
+
+    .card {
+    overflow: hidden;
+    transition: all 0.3s ease;
+    }
+
+    .card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+    transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-outline-secondary:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    }
+
+    input[type="number"] {
+    -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    .nav-tabs .nav-link {
+    border: none;
+    position: relative;
+    color: #6c757d;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+    background-color: transparent;
+    color: var(--secondary-color);
+    }
+
+    .nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: var(--primary-color);
+    }
+
+    .fa-star,
+    .fa-star-o {
+    cursor: pointer;
+    }
+
+    @media (max-width: 767.98px) {
+    .product-gallery {
+      margin-bottom: 2rem;
+    }
+    }
+
+    @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+    }
+
+    .tab-pane.fade.show.active {
+    animation: fadeIn 0.5s ease;
+    }
+
+    .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+    }
+
+    .badge-sale {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 30px;
+    font-weight: 700;
+    }
+  </style>
 @endsection
 
 @section('content')
-
-<main class="pt-90">
-    <div class="mb-md-1 pb-md-3"></div>
-    <section class="product-single container">
-      <div class="row">
-        <div class="col-lg-7">
-          <div class="product-single__media" data-media-type="vertical-thumbnail">
-            <div class="product-single__image">
-              <div class="swiper-container">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide product-single__image-item">
-                    <img loading="lazy" class="h-auto" src="{{asset('uploads/products')}}/{{$product->image}}" width="674"
-                      height="674" alt="" />
-                    <a data-fancybox="gallery" href="{{asset('uploads/products')}}/{{$product->image}}" data-bs-toggle="tooltip"
-                      data-bs-placement="left" title="Zoom">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_zoom" />
-                      </svg>
-                    </a>
-                  </div>
-                  @foreach (explode(',', $product->images) as $gimg)
-                  <div class="swiper-slide product-single__image-item">
-                    <img loading="lazy" class="h-auto" src="{{asset('uploads/products')}}/{{$gimg}}" width="674"
-                      height="674" alt="" />
-                    <a data-fancybox="gallery" href="{{asset('uploads/products')}}/{{$gimg}}" data-bs-toggle="tooltip"
-                      data-bs-placement="left" title="Zoom">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_zoom" />
-                      </svg>
-                    </a>
-                  </div>
-                  @endforeach
-                <div class="swiper-button-prev"><svg width="7" height="11" viewBox="0 0 7 11"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <use href="#icon_prev_sm" />
-                  </svg></div>
-                <div class="swiper-button-next"><svg width="7" height="11" viewBox="0 0 7 11"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <use href="#icon_next_sm" />
-                  </svg></div>
-              </div>
-            </div>
-            <div class="product-single__thumbnail">
-              <div class="swiper-container">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide product-single__image-item"><img loading="lazy" class="h-auto"
-                      src="{{asset('uploads/products/thumbnails')}}/{{$product->image}}" width="104" height="104" alt="" /></div>
-                  @foreach (explode(',', $product->images) as $gimg)
-                  <div class="swiper-slide product-single__image-item"><img loading="lazy" class="h-auto"
-                      src="{{asset('uploads/products/thumbnails')}}/{{$gimg}}" width="104" height="104" alt="" /></div>
-                  @endforeach
-                  
-                </div>
-              </div>
-            </div>
+  <main class="pt-5">
+    <div class="container">
+    <div class="row mb-5 g-4">
+      <!-- Product Images Column -->
+      <div class="col-lg-6">
+      <div class="product-gallery position-relative bg-white shadow-sm rounded-3 p-3">
+        <!-- Main Image Swiper -->
+        <div class="swiper-container mb-3">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide text-center">
+          <img src="{{asset('uploads/products')}}/{{$product->image}}" class="img-fluid rounded-3"
+            alt="{{$product->name}}" style="max-height: 450px; object-fit: contain; width: 79%;">
           </div>
+          @foreach (explode(',', $product->images) as $gimg)
+        <div class="swiper-slide text-center">
+        <img src="{{asset('uploads/products')}}/{{$gimg}}" class="img-fluid rounded-3" alt="{{$product->name}}"
+        style="max-height: 450px; object-fit: contain;  width: 79%;">
         </div>
-        <div class="col-lg-5">
-          <div class="d-flex justify-content-between mb-4 pb-md-2">
-            <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-              <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
-              <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
-              <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">The Shop</a>
-            </div><!-- /.breadcrumb -->
+      @endforeach
+        </div>
+        <div class="swiper-button-prev" style="color: var(--primary-color); --swiper-navigation-size: 30px;"></div>
+        <div class="swiper-button-next" style="color: var(--primary-color); --swiper-navigation-size: 30px;"></div>
+        </div>
 
-            <div
-              class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
-              <a href="#" class="text-uppercase fw-medium"><svg width="10" height="10" viewBox="0 0 25 25"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <use href="#icon_prev_md" />
-                </svg><span class="menu-link menu-link_us-s">Prev</span></a>
-              <a href="#" class="text-uppercase fw-medium"><span class="menu-link menu-link_us-s">Next</span><svg
-                  width="10" height="10" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                  <use href="#icon_next_md" />
-                </svg></a>
-            </div><!-- /.shop-acs -->
+        <!-- Thumbnail Navigation -->
+        <div class="swiper-container thumbnail-swiper mt-3">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+          <img src="{{asset('uploads/products')}}/{{$product->image}}" class="img-fluid rounded-3"
+            style="border: 2px solid transparent; cursor: pointer; height: 80px; width: 100%; object-fit: cover;"
+            alt="thumbnail">
           </div>
-          <h1 class="product-single__name">{{$product->name}}</h1>
-          <div class="product-single__rating">
-            <div class="reviews-group d-flex">
-              <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                <use href="#icon_star" />
-              </svg>
-              <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                <use href="#icon_star" />
-              </svg>
-              <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                <use href="#icon_star" />
-              </svg>
-              <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                <use href="#icon_star" />
-              </svg>
-              <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                <use href="#icon_star" />
-              </svg>
-            </div>
-            <span class="reviews-note text-lowercase text-secondary ms-1">8k+ reviews</span>
-          </div>
-          <div class="product-single__price">
-            <span class="current-price">
-                @if($product->sale_price)
-                <s>${{$product->regular_price}}</s> ${{$product->sale_price}}
-                @else
-                ${{$product->regular_price}}
-                @endif
-            </span>
-          </div>
-          <div class="product-single__short-desc">
-            <p>
-                {{$product->short_description}}
-            </p>
-          </div>
-          @if(Cart::instance('cart')->content()->where('id', $product->id)->count() > 0)
-          <a href="{{route('cart.index')}}" class="btn btn-warning mb-3">Ir al carrito</a>
-          @else
-          <form name="addtocart-form" method="POST" action="{{route('cart.add')}}">
-            @csrf
-            <div class="product-single__addtocart">
-              <div class="qty-control position-relative">
-                <input type="number" name="quantity" value="1" min="1" class="qty-control__number text-center">
-                <div class="qty-control__reduce">-</div>
-                <div class="qty-control__increase">+</div>
-              </div><!-- .qty-control -->
-              <input type="hidden" name="id" value="{{$product->id}}">
-              <input type="hidden" name="name" value="{{$product->name}}">
-              <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
-              <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">Agregar al carrito</button>
-            </div>
-          </form>
-          @endif
-          <div class="product-single__addtolinks">
-            @if(Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
-            <form method="POST" action="{{route('wishlist.item.remove',['rowId'=>Cart::instance('wishlist')->content()->where('id', $product->id)->first()->rowId])}}" id="frm-remove-item">
-              @csrf
-              @method('DELETE')
-              <a href="javascript:void(0)" class="menu-link menu-link_us-s add-to-wishlist" onclick="document.getElementById('frm-remove-item').submit();"><i class="fa-solid fa-heart" style="color: #d769a3;"><svg width="16" height="16" viewBox="0 0 20 20"
-                fill="none" xmlns="http://www.w3.org/2000/svg"></svg></i>
-                <span>Borrar de favoritos</span></a>
-            </form>
-            @else
-            <form action="{{route('wishlist.add')}}" method="POST" id="wishlist-form">
-              @csrf
-              <input type="hidden" name="id" value="{{$product->id}}">
-              <input type="hidden" name="quantity" value="1">
-              <input type="hidden" name="name" value="{{$product->name}}">
-              <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
-              <a href="javascript:void(0)" class="menu-link menu-link_us-s add-to-wishlist" onclick="document.getElementById('wishlist-form').submit();"><svg width="16" height="16" viewBox="0 0 20 20"
-                fill="none" xmlns="http://www.w3.org/2000/svg">
-                <use href="#icon_heart" />
-              </svg><span>Agregar a favoritos</span></a>
-            </form>
-
-            @endif
-            <share-button class="share-button">
-              <button class="menu-link menu-link_us-s to-share border-0 bg-transparent d-flex align-items-center">
-                <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <use href="#icon_sharing" />
-                </svg>
-                <span>Share</span>
-              </button>
-              <details id="Details-share-template__main" class="m-1 xl:m-1.5" hidden="">
-                <summary class="btn-solid m-1 xl:m-1.5 pt-3.5 pb-3 px-5">+</summary>
-                <div id="Article-share-template__main"
-                  class="share-button__fallback flex items-center absolute top-full left-0 w-full px-2 py-4 bg-container shadow-theme border-t z-10">
-                  <div class="field grow mr-4">
-                    <label class="field__label sr-only" for="url">Link</label>
-                    <input type="text" class="field__input w-full" id="url"
-                      value="https://uomo-crystal.myshopify.com/blogs/news/go-to-wellness-tips-for-mental-health"
-                      placeholder="Link" onclick="this.select();" readonly="">
-                  </div>
-                  <button class="share-button__copy no-js-hidden">
-                    <svg class="icon icon-clipboard inline-block mr-1" width="11" height="13" fill="none"
-                      xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 11 13">
-                      <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M2 1a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1V1H2zM1 2a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V3a1 1 0 00-1-1H1zm0 10V3h7v9H1z"
-                        fill="currentColor"></path>
-                    </svg>
-                    <span class="sr-only">Copy link</span>
-                  </button>
-                </div>
-              </details>
-            </share-button>
-            <script src="js/details-disclosure.html" defer="defer"></script>
-            <script src="js/share.html" defer="defer"></script>
-          </div>
-          <div class="product-single__meta-info">
-            <div class="meta-item">
-              <label>SKU:</label>
-              <span>{{$product->SKU}}</span>
-            </div>
-            <div class="meta-item">
-              <label>Categorias:</label>
-              <span>{{$product->category->name}}</span>
-            </div>
-            <div class="meta-item">
-              <label>Tags:</label>
-              <span>biker, black, bomber, leather</span>
-            </div>
-          </div>
+          @foreach (explode(',', $product->images) as $gimg)
+        <div class="swiper-slide">
+        <img src="{{asset('uploads/products/thumbnails')}}/{{$gimg}}" class="img-fluid rounded-3"
+        style="border: 2px solid transparent; cursor: pointer; height: 80px; width: 100%; object-fit: cover;"
+        alt="thumbnail">
+        </div>
+      @endforeach
+        </div>
         </div>
       </div>
-      <div class="product-single__details-tab">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <a class="nav-link nav-link_underscore active" id="tab-description-tab" data-bs-toggle="tab"
-              href="#tab-description" role="tab" aria-controls="tab-description" aria-selected="true">Description</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link nav-link_underscore" id="tab-additional-info-tab" data-bs-toggle="tab"
-              href="#tab-additional-info" role="tab" aria-controls="tab-additional-info"
-              aria-selected="false">Additional Information</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link nav-link_underscore" id="tab-reviews-tab" data-bs-toggle="tab" href="#tab-reviews"
-              role="tab" aria-controls="tab-reviews" aria-selected="false">Reviews (2)</a>
-          </li>
+      </div>
+
+      <!-- Product Info Column -->
+      <div class="col-lg-6">
+      <div class="bg-white shadow-sm rounded-3 p-4">
+        <h1 class="mb-3 fs-2 fw-bold" style="color: var(--secondary-color);">{{$product->name}}</h1>
+
+        <!-- Rating Stars -->
+        <div class="d-flex align-items-center mb-3">
+        <div class="text-warning me-3">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+        </div>
+
+        </div>
+
+        <!-- Price -->
+        <div class="mb-4">
+        <h3>
+          @if($product->sale_price)
+        <span class="text-muted text-decoration-line-through fs-5 me-2">${{$product->regular_price}}</span>
+        <span style="color: var(--primary-color); font-weight: 700;">${{$product->sale_price}}</span>
+      @else
+      <span style="color: var(--primary-color); font-weight: 700;">${{$product->regular_price}}</span>
+    @endif
+        </h3>
+        </div>
+
+        <!-- Short Description -->
+        <div class="mb-4">
+        <p class="lead" style="font-size: 1rem; line-height: 1.6;">{{$product->short_description}}</p>
+        </div>
+
+        <!-- Add to Cart Form -->
+        @if(Cart::instance('cart')->content()->where('id', $product->id)->count() > 0)
+      <a href="{{route('cart.index')}}" class="btn btn-warning mb-4 py-2 px-4 fw-semibold"
+      style="background-color: var(--accent-color); border-color: var(--accent-color); border-radius: 8px;">
+      <i class="fa fa-shopping-cart me-2"></i>Ir al carrito
+      </a>
+    @else
+    <form name="addtocart-form" method="POST" action="{{route('cart.add')}}" class="mb-4">
+    @csrf
+    <div class="d-flex align-items-center mb-3">
+      <div class="input-group me-3" style="width: 130px;">
+      <button type="button" class="btn btn-outline-secondary qty-control__reduce"
+      style="border-color: var(--border-color); border-radius: 8px 0 0 8px;">
+      <i class="fa fa-minus"></i>
+      </button>
+      <input type="number" name="quantity" value="1" min="1" class="form-control text-center"
+      style="border-color: var(--border-color); border-left: 0; border-right: 0;">
+      <button type="button" class="btn btn-outline-secondary qty-control__increase"
+      style="border-color: var(--border-color); border-radius: 0 8px 8px 0;">
+      <i class="fa fa-plus"></i>
+      </button>
+      </div>
+      <input type="hidden" name="id" value="{{$product->id}}">
+      <input type="hidden" name="name" value="{{$product->name}}">
+      <input type="hidden" name="price"
+      value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+      <button type="submit" class="btn btn-primary py-2 px-4 fw-semibold"
+      style="background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 8px;">
+      <i class="fa fa-cart-plus me-2"></i>Agregar al carrito
+      </button>
+    </div>
+    </form>
+  @endif
+
+        <!-- Wishlist and Share -->
+        <div class="d-flex mb-4">
+        @if(Cart::instance('wishlist')->content()->where('id', $product->id)->count() > 0)
+      <form method="POST"
+        action="{{route('wishlist.item.remove', ['rowId' => Cart::instance('wishlist')->content()->where('id', $product->id)->first()->rowId])}}"
+        id="frm-remove-item">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-outline-secondary me-2 py-2"
+        style="border-color: var(--border-color); border-radius: 8px; font-weight: 500;">
+        <i class="fa fa-heart me-2" style="color: var(--primary-color);"></i> Eliminar de la lista de deseos
+        </button>
+      </form>
+    @else
+    <form action="{{route('wishlist.add')}}" method="POST" id="wishlist-form">
+      @csrf
+      <input type="hidden" name="id" value="{{$product->id}}">
+      <input type="hidden" name="quantity" value="1">
+      <input type="hidden" name="name" value="{{$product->name}}">
+      <input type="hidden" name="price"
+      value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+      <button type="submit" class="btn btn-outline-secondary me-2 py-2"
+      style="border-color: var(--border-color); border-radius: 8px; font-weight: 500;">
+      <i class="fa fa-heart-o me-2"></i> Agregar a la lista de deseos
+      </button>
+    </form>
+  @endif
+
+        <button class="btn btn-outline-secondary py-2"
+          style="border-color: var(--border-color); border-radius: 8px; font-weight: 500;">
+          <i class="fa fa-share-alt me-2"></i> Compartir
+        </button>
+        </div>
+
+        <!-- Product Meta Info -->
+        <div class="card mb-4"
+        style="border-color: var(--border-color); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <div class="card-body">
+          <div class="row mb-2">
+          <div class="col-4 fw-bold">SKU:</div>
+          <div class="col-8">{{$product->SKU}}</div>
+          </div>
+          <div class="row">
+          <div class="col-4 fw-bold">Categoría:</div>
+          <div class="col-8">{{$product->category->name}}</div>
+          </div>
+        </div>
+        </div>
+
+        <!-- Delivery and Return Info -->
+        <div class="d-flex flex-wrap gap-3 mb-3">
+        <div class="d-flex align-items-center">
+          <i class="fa fa-truck me-2" style="color: var(--primary-color);"></i>
+          <span>Envío gratis en los pedidos</span>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Product Details Tabs -->
+    <div class="row mb-5">
+      <div class="col-12">
+      <div class="bg-white shadow-sm rounded-3 p-4">
+        <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active fw-semibold" id="description-tab" data-bs-toggle="tab"
+          data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true"
+          style="color: var(--secondary-color); border-bottom: 2px solid transparent;">Descripción</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link fw-semibold" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews"
+          type="button" role="tab" aria-controls="reviews" aria-selected="false"
+          style="color: var(--secondary-color); border-bottom: 2px solid transparent;">Opiniones (2)</button>
+        </li>
         </ul>
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="tab-description" role="tabpanel"
-            aria-labelledby="tab-description-tab">
-            <div class="product-single__description">
-              <h3 class="product-sigle_tittle">{{$product->description}}</h3>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="tab-additional-info" role="tabpanel" aria-labelledby="tab-additional-info-tab">
-            <div class="product-single__addtional-info">
-              <div class="item">
-                <label class="h6">Weight</label>
-                <span>1.25 kg</span>
-              </div>
-              <div class="item">
-                <label class="h6">Dimensions</label>
-                <span>90 x 60 x 90 cm</span>
-              </div>
-              <div class="item">
-                <label class="h6">Size</label>
-                <span>XS, S, M, L, XL</span>
-              </div>
-              <div class="item">
-                <label class="h6">Color</label>
-                <span>Black, Orange, White</span>
-              </div>
-              <div class="item">
-                <label class="h6">Storage</label>
-                <span>Relaxed fit shirt-style dress with a rugged</span>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="tab-reviews-tab">
-            <h2 class="product-single__reviews-title">Reviews</h2>
-            <div class="product-single__reviews-list">
-              <div class="product-single__reviews-item">
-                <div class="customer-avatar">
-                  <img loading="lazy" src="assets/images/avatar.jpg" alt="" />
-                </div>
-                <div class="customer-review">
-                  <div class="customer-name">
-                    <h6>Janice Miller</h6>
-                    <div class="reviews-group d-flex">
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="review-date">April 06, 2023</div>
-                  <div class="review-text">
-                    <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
-                      maxime placeat facere possimus, omnis voluptas assumenda est…</p>
-                  </div>
-                </div>
-              </div>
-              <div class="product-single__reviews-item">
-                <div class="customer-avatar">
-                  <img loading="lazy" src="assets/images/avatar.jpg" alt="" />
-                </div>
-                <div class="customer-review">
-                  <div class="customer-name">
-                    <h6>Benjam Porter</h6>
-                    <div class="reviews-group d-flex">
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                      <svg class="review-star" viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_star" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="review-date">April 06, 2023</div>
-                  <div class="review-text">
-                    <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
-                      maxime placeat facere possimus, omnis voluptas assumenda est…</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-single__review-form">
-              <form name="customer-review-form">
-                <h5>Be the first to review “Message Cotton T-Shirt”</h5>
-                <p>Your email address will not be published. Required fields are marked *</p>
-                <div class="select-star-rating">
-                  <label>Your rating *</label>
-                  <span class="star-rating">
-                    <svg class="star-rating__star-icon" width="12" height="12" fill="#ccc" viewBox="0 0 12 12"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11.1429 5.04687C11.1429 4.84598 10.9286 4.76562 10.7679 4.73884L7.40625 4.25L5.89955 1.20312C5.83929 1.07589 5.72545 0.928571 5.57143 0.928571C5.41741 0.928571 5.30357 1.07589 5.2433 1.20312L3.73661 4.25L0.375 4.73884C0.207589 4.76562 0 4.84598 0 5.04687C0 5.16741 0.0870536 5.28125 0.167411 5.3683L2.60491 7.73884L2.02902 11.0871C2.02232 11.1339 2.01563 11.1741 2.01563 11.221C2.01563 11.3951 2.10268 11.5558 2.29688 11.5558C2.39063 11.5558 2.47768 11.5223 2.56473 11.4754L5.57143 9.89509L8.57813 11.4754C8.65848 11.5223 8.75223 11.5558 8.84598 11.5558C9.04018 11.5558 9.12054 11.3951 9.12054 11.221C9.12054 11.1741 9.12054 11.1339 9.11384 11.0871L8.53795 7.73884L10.9688 5.3683C11.0558 5.28125 11.1429 5.16741 11.1429 5.04687Z" />
-                    </svg>
-                    <svg class="star-rating__star-icon" width="12" height="12" fill="#ccc" viewBox="0 0 12 12"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11.1429 5.04687C11.1429 4.84598 10.9286 4.76562 10.7679 4.73884L7.40625 4.25L5.89955 1.20312C5.83929 1.07589 5.72545 0.928571 5.57143 0.928571C5.41741 0.928571 5.30357 1.07589 5.2433 1.20312L3.73661 4.25L0.375 4.73884C0.207589 4.76562 0 4.84598 0 5.04687C0 5.16741 0.0870536 5.28125 0.167411 5.3683L2.60491 7.73884L2.02902 11.0871C2.02232 11.1339 2.01563 11.1741 2.01563 11.221C2.01563 11.3951 2.10268 11.5558 2.29688 11.5558C2.39063 11.5558 2.47768 11.5223 2.56473 11.4754L5.57143 9.89509L8.57813 11.4754C8.65848 11.5223 8.75223 11.5558 8.84598 11.5558C9.04018 11.5558 9.12054 11.3951 9.12054 11.221C9.12054 11.1741 9.12054 11.1339 9.11384 11.0871L8.53795 7.73884L10.9688 5.3683C11.0558 5.28125 11.1429 5.16741 11.1429 5.04687Z" />
-                    </svg>
-                    <svg class="star-rating__star-icon" width="12" height="12" fill="#ccc" viewBox="0 0 12 12"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11.1429 5.04687C11.1429 4.84598 10.9286 4.76562 10.7679 4.73884L7.40625 4.25L5.89955 1.20312C5.83929 1.07589 5.72545 0.928571 5.57143 0.928571C5.41741 0.928571 5.30357 1.07589 5.2433 1.20312L3.73661 4.25L0.375 4.73884C0.207589 4.76562 0 4.84598 0 5.04687C0 5.16741 0.0870536 5.28125 0.167411 5.3683L2.60491 7.73884L2.02902 11.0871C2.02232 11.1339 2.01563 11.1741 2.01563 11.221C2.01563 11.3951 2.10268 11.5558 2.29688 11.5558C2.39063 11.5558 2.47768 11.5223 2.56473 11.4754L5.57143 9.89509L8.57813 11.4754C8.65848 11.5223 8.75223 11.5558 8.84598 11.5558C9.04018 11.5558 9.12054 11.3951 9.12054 11.221C9.12054 11.1741 9.12054 11.1339 9.11384 11.0871L8.53795 7.73884L10.9688 5.3683C11.0558 5.28125 11.1429 5.16741 11.1429 5.04687Z" />
-                    </svg>
-                    <svg class="star-rating__star-icon" width="12" height="12" fill="#ccc" viewBox="0 0 12 12"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11.1429 5.04687C11.1429 4.84598 10.9286 4.76562 10.7679 4.73884L7.40625 4.25L5.89955 1.20312C5.83929 1.07589 5.72545 0.928571 5.57143 0.928571C5.41741 0.928571 5.30357 1.07589 5.2433 1.20312L3.73661 4.25L0.375 4.73884C0.207589 4.76562 0 4.84598 0 5.04687C0 5.16741 0.0870536 5.28125 0.167411 5.3683L2.60491 7.73884L2.02902 11.0871C2.02232 11.1339 2.01563 11.1741 2.01563 11.221C2.01563 11.3951 2.10268 11.5558 2.29688 11.5558C2.39063 11.5558 2.47768 11.5223 2.56473 11.4754L5.57143 9.89509L8.57813 11.4754C8.65848 11.5223 8.75223 11.5558 8.84598 11.5558C9.04018 11.5558 9.12054 11.3951 9.12054 11.221C9.12054 11.1741 9.12054 11.1339 9.11384 11.0871L8.53795 7.73884L10.9688 5.3683C11.0558 5.28125 11.1429 5.16741 11.1429 5.04687Z" />
-                    </svg>
-                    <svg class="star-rating__star-icon" width="12" height="12" fill="#ccc" viewBox="0 0 12 12"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M11.1429 5.04687C11.1429 4.84598 10.9286 4.76562 10.7679 4.73884L7.40625 4.25L5.89955 1.20312C5.83929 1.07589 5.72545 0.928571 5.57143 0.928571C5.41741 0.928571 5.30357 1.07589 5.2433 1.20312L3.73661 4.25L0.375 4.73884C0.207589 4.76562 0 4.84598 0 5.04687C0 5.16741 0.0870536 5.28125 0.167411 5.3683L2.60491 7.73884L2.02902 11.0871C2.02232 11.1339 2.01563 11.1741 2.01563 11.221C2.01563 11.3951 2.10268 11.5558 2.29688 11.5558C2.39063 11.5558 2.47768 11.5223 2.56473 11.4754L5.57143 9.89509L8.57813 11.4754C8.65848 11.5223 8.75223 11.5558 8.84598 11.5558C9.04018 11.5558 9.12054 11.3951 9.12054 11.221C9.12054 11.1741 9.12054 11.1339 9.11384 11.0871L8.53795 7.73884L10.9688 5.3683C11.0558 5.28125 11.1429 5.16741 11.1429 5.04687Z" />
-                    </svg>
-                  </span>
-                  <input type="hidden" id="form-input-rating" value="" />
-                </div>
-                <div class="mb-4">
-                  <textarea id="form-input-review" class="form-control form-control_gray" placeholder="Your Review"
-                    cols="30" rows="8"></textarea>
-                </div>
-                <div class="form-label-fixed mb-4">
-                  <label for="form-input-name" class="form-label">Name *</label>
-                  <input id="form-input-name" class="form-control form-control-md form-control_gray">
-                </div>
-                <div class="form-label-fixed mb-4">
-                  <label for="form-input-email" class="form-label">Email address *</label>
-                  <input id="form-input-email" class="form-control form-control-md form-control_gray">
-                </div>
-                <div class="form-check mb-4">
-                  <input class="form-check-input form-check-input_fill" type="checkbox" value="" id="remember_checkbox">
-                  <label class="form-check-label" for="remember_checkbox">
-                    Save my name, email, and website in this browser for the next time I comment.
-                  </label>
-                </div>
-                <div class="form-action">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-            </div>
+
+        <div class="tab-content" id="productTabsContent">
+        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+          <div class="p-4 bg-light rounded-3">
+          <p style="line-height: 1.8;">{{$product->description}}</p>
           </div>
         </div>
-      </div>
-    </section>
-    <section class="products-carousel container">
-      <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4">Calzado <strong>Relacionado</strong></h2>
 
-      <div id="related_products" class="position-relative">
-        <div class="swiper-container js-swiper-slider" data-settings='{
-            "autoplay": false,
-            "slidesPerView": 4,
-            "slidesPerGroup": 4,
-            "effect": "none",
-            "loop": true,
-            "pagination": {
-              "el": "#related_products .products-pagination",
-              "type": "bullets",
-              "clickable": true
-            },
-            "navigation": {
-              "nextEl": "#related_products .products-carousel__next",
-              "prevEl": "#related_products .products-carousel__prev"
-            },
-            "breakpoints": {
-              "320": {
-                "slidesPerView": 2,
-                "slidesPerGroup": 2,
-                "spaceBetween": 14
-              },
-              "768": {
-                "slidesPerView": 3,
-                "slidesPerGroup": 3,
-                "spaceBetween": 24
-              },
-              "992": {
-                "slidesPerView": 4,
-                "slidesPerGroup": 4,
-                "spaceBetween": 30
-              }
-            }
-          }'>
-          <div class="swiper-wrapper">
-            @foreach ($rproducts as $rproduct)
-            <div class="swiper-slide product-card">
-              <div class="pc__img-wrapper">
-                <a href="{{route('shop.product.details', ['product_slug'=>$rproduct->slug])}}" class="pc__img-link">
-                  <img loading="lazy" src="{{asset('uploads/products/thumbnails')}}/{{$rproduct->image}}" width="330" height="400"
-                    alt="{{$rproduct->name}}" class="pc__img">
-                    @foreach (explode(',', $rproduct->images) as $gimg)
-                  <img loading="lazy" src="{{asset('uploads/products/thumbnails')}}/{{$gimg}}" width="330" height="400"
-                    alt="{{$rproduct->name}}" class="pc__img pc__img-second">
-                    @endforeach
-                </a>
-                @if(Cart::instance('cart')->content()->where('id', $rproduct->id)->count() > 0)
-                  <a href="{{route('cart.index')}}" class="btn btn-warning mb-3">Ir al carrito</a>
-                  @else
-                  <form name="addtocart-form" method="POST" action="{{route('cart.add')}}">
-                    @csrf
-                    <div class="product-single__addtocart">
-                      <div class="qty-control position-relative">
-                        <input type="number" name="quantity" value="1" min="1" class="qty-control__number text-center">
-                        <div class="qty-control__reduce">-</div>
-                        <div class="qty-control__increase">+</div>
-                      </div><!-- .qty-control -->
-                      <input type="hidden" name="id" value="{{$rproduct->id}}">
-                      <input type="hidden" name="name" value="{{$rproduct->name}}">
-                      <input type="hidden" name="price" value="{{$rproduct->sale_price == '' ? $rproduct->regular_price : $rproduct->sale_price}}">
-                      <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">Agregar al carrito</button>
-                    </div>
-                  </form>
-                  @endif
+        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+          <div class="p-4 bg-light rounded-3">
+          <!-- Example Review -->
+          <div class="card mb-4"
+            style="border-color: var(--border-color); border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <div class="card-body">
+            <div class="d-flex mb-3">
+              <div class="flex-shrink-0">
+              <img
+                src="https://w7.pngwing.com/pngs/164/963/png-transparent-male-avatar-boy-face-man-user-flat-classy-users-icon.png"
+                class="rounded-circle" alt="user" width="50" height="50" style="object-fit: cover;">
               </div>
-
-              <div class="pc__info position-relative">
-                <p class="pc__category">{{$rproduct->category->name}}</p>
-                <h6 class="pc__title"><a href="{{route('shop.product.details', ['product_slug'=>$rproduct->slug])}}l">{{$rproduct->name}}</a></h6>
-                <div class="product-card__price d-flex">
-                  <span class="money price">
-                    @if($product->sale_price)
-                    <s>${{$product->regular_price}}</s> ${{$product->sale_price}}
-                    @else
-                    ${{$product->regular_price}}
-                    @endif
-                  </span>
-                </div>
-
-                
-
-                <button class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                  title="Add To Wishlist">
-                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <use href="#icon_heart" />
-                  </svg>
-                </button>
+              <div class="ms-3">
+              <h5 class="mb-1 fw-bold">Rodrigo Sosa Romero</h5>
+              <div class="text-warning mb-1">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <p class="text-muted small">Publicado el 10 de marzo 2025</p>
               </div>
             </div>
-            @endforeach
-          </div><!-- /.swiper-wrapper -->
-        </div><!-- /.swiper-container js-swiper-slider -->
+            <p style="line-height: 1.6;">Es un muy buen producto</p>
+            </div>
+          </div>
 
-        <div class="products-carousel__prev position-absolute top-50 d-flex align-items-center justify-content-center">
-          <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-            <use href="#icon_prev_md" />
-          </svg>
-        </div><!-- /.products-carousel__prev -->
-        <div class="products-carousel__next position-absolute top-50 d-flex align-items-center justify-content-center">
-          <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-            <use href="#icon_next_md" />
-          </svg>
-        </div><!-- /.products-carousel__next -->
+          <!-- Review Form -->
+          <h4 class="mb-3 fw-bold">Escribir una opinión</h4>
+          <form>
+            <div class="mb-3">
+            <label class="form-label fw-semibold">Tu calificación</label>
+            <div class="text-warning mb-2 fs-5">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+            </div>
+            <div class="mb-3">
+            <label for="review" class="form-label fw-semibold">¿Qué opinas?</label>
+            <textarea class="form-control" id="review" rows="3"
+              style="border-color: var(--border-color); border-radius: 8px;"></textarea>
+            </div>
+            <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="name" class="form-label fw-semibold">Nombre</label>
+              <input type="text" class="form-control" id="name"
+              style="border-color: var(--border-color); border-radius: 8px;">
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label fw-semibold">Correo</label>
+              <input type="email" class="form-control" id="email"
+              style="border-color: var(--border-color); border-radius: 8px;">
+            </div>
+            </div>
+            <button type="submit" class="btn btn-primary py-2 px-4 fw-semibold"
+            style="background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 8px;">Enviar</button>
+          </form>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
 
-        <div class="products-pagination mt-4 mb-5 d-flex align-items-center justify-content-center"></div>
-        <!-- /.products-pagination -->
-      </div><!-- /.position-relative -->
-
-    </section><!-- /.products-carousel container -->
+    <!-- Related Products -->
+    <div class="row mb-5">
+      <div class="col-12">
+      <h3 class="mb-4 fw-bold" style="color: var(--secondary-color);">Productos relacionados</h3>
+      <div class="swiper-container related-products">
+        <div class="swiper-wrapper">
+        @foreach ($rproducts as $rproduct)
+      <div class="swiper-slide">
+        <div class="card h-100 border-0 shadow-sm"
+        style="border-radius: 12px; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)';"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0.125rem 0.25rem rgba(0,0,0,0.075)';">
+        <div class="position-relative">
+        <a href="{{route('shop.product.details', ['product_slug' => $rproduct->slug])}}">
+        <img src="{{asset('uploads/products/thumbnails')}}/{{$rproduct->image}}" class="card-img-top"
+          alt="{{$rproduct->name}}" style="height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;">
+        </a>
+        @if($rproduct->sale_price)
+      <span class="position-absolute top-0 end-0 bg-danger text-white fw-bold px-2 py-1 m-2 rounded-pill"
+      style="font-size: 0.8rem;">Promoción</span>
+    @endif
+        </div>
+        <div class="card-body d-flex flex-column">
+        <p class="card-text text-muted small mb-1">{{$rproduct->category->name}}</p>
+        <h5 class="card-title mb-2">
+        <a href="{{route('shop.product.details', ['product_slug' => $rproduct->slug])}}"
+          class="text-decoration-none"
+          style="color: var(--secondary-color); font-weight: 600;">{{$rproduct->name}}</a>
+        </h5>
+        <p class="card-text mb-3">
+        @if($rproduct->sale_price)
+      <span class="text-muted text-decoration-line-through me-2">${{$rproduct->regular_price}}</span>
+      <span style="color: var(--primary-color); font-weight: 700;">${{$rproduct->sale_price}}</span>
+    @else
+    <span style="color: var(--primary-color); font-weight: 700;">${{$rproduct->regular_price}}</span>
+  @endif
+        </p>
+        <div class="d-flex justify-content-between mt-auto">
+        @if(Cart::instance('cart')->content()->where('id', $rproduct->id)->count() > 0)
+      <a href="{{route('cart.index')}}" class="btn btn-sm btn-outline-secondary"
+        style="border-radius: 8px; font-weight: 500;">Ver en el carrito</a>
+    @else
+    <form action="{{route('cart.add')}}" method="POST">
+      @csrf
+      <input type="hidden" name="id" value="{{$rproduct->id}}">
+      <input type="hidden" name="name" value="{{$rproduct->name}}">
+      <input type="hidden" name="quantity" value="1">
+      <input type="hidden" name="price"
+      value="{{$rproduct->sale_price == '' ? $rproduct->regular_price : $rproduct->sale_price}}">
+      <button type="submit" class="btn btn-sm btn-primary"
+      style="background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 8px; font-weight: 500;">Agregar al carrito</button>
+    </form>
+  @endif
+        </div>
+        </div>
+        </div>
+      </div>
+    @endforeach
+        </div>
+        <div class="swiper-pagination mt-4"></div>
+      </div>
+      </div>
+    </div>
+    </div>
   </main>
 
-@endSection
-
-
+@endsection
 @push('scripts')
-<script src="{{asset('recursos/user/js/plugins/jquery.min.js')}}"></script>
-<script src="{{asset('recursos/user/js/plugins/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('recursos/user/js/plugins/bootstrap-slider.min.js')}}"></script>
-<script src="{{asset('recursos/user/js/plugins/swiper.min.js')}}"></script>
-<script src="{{asset('recursos/user/js/plugins/countdown.js')}}"></script>
-<script src="{{asset('recursos/user/js/theme.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+    integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"
+    integrity="sha512-VK2zcvntEufaimc+efOYi622VN5ZacdnufnmX7zIhCPmjhKnOi9ZDMtg1/ug5l183f19gG1/cBstPO4D8N/Img=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"
+    integrity="sha512-wdUM0BxMyMC/Yem1RWDiIiXA6ssXMoxypihVEwxDc+ftznGeRu4s9Fmxl8PthpxOh5CQ0eqjqw1Q8ScgNA1moQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const highlightThumbnail = (index) => {
+      const thumbnails = document.querySelectorAll('.thumbnail-swiper .swiper-slide img');
+      thumbnails.forEach((thumb, i) => {
+      if (i === index) {
+        thumb.style.border = `2px solid var(--primary-color)`;
+        thumb.style.opacity = '1';
+      } else {
+        thumb.style.border = '2px solid transparent';
+        thumb.style.opacity = '0.7';
+      }
+      });
+    };
+
+    // Main product image swiper
+    const mainSwiper = new Swiper('.product-gallery .swiper-container:first-child', {
+      loop: true,
+      speed: 500,
+      autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+      },
+      effect: 'fade',
+      fadeEffect: {
+      crossFade: true
+      },
+      navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+      },
+      on: {
+      slideChange: function () {
+        highlightThumbnail(this.realIndex);
+      }
+      }
+    });
+
+    // Thumbnail swiper
+    const thumbSwiper = new Swiper('.thumbnail-swiper', {
+      slidesPerView: 4,
+      spaceBetween: 10,
+      freeMode: true,
+      watchSlidesProgress: true,
+      breakpoints: {
+      480: {
+        slidesPerView: 5,
+      },
+      768: {
+        slidesPerView: 4,
+      }
+      }
+    });
+
+    // Link the two swipers
+    mainSwiper.controller.control = thumbSwiper;
+    thumbSwiper.controller.control = mainSwiper;
+
+    // Highlight initial thumbnail
+    highlightThumbnail(0);
+
+    // Click functionality for thumbnails
+    const thumbnails = document.querySelectorAll('.thumbnail-swiper .swiper-slide');
+    thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+      mainSwiper.slideTo(index);
+      highlightThumbnail(index);
+      });
+    });
+
+    // Related products slider
+    const relatedProductsSwiper = new Swiper('.related-products', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      grabCursor: true,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+      autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+      },
+      breakpoints: {
+      576: {
+        slidesPerView: 2,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      1024: {
+        slidesPerView: 4,
+      },
+      },
+    });
+
+    // Review stars interaction
+    const reviewStars = document.querySelectorAll('#reviews .fa-star-o');
+    let currentRating = 0;
+
+    reviewStars.forEach((star, index) => {
+      star.addEventListener('mouseover', () => {
+      for (let i = 0; i <= index; i++) {
+        reviewStars[i].classList.remove('fa-star-o');
+        reviewStars[i].classList.add('fa-star');
+      }
+      });
+
+      star.addEventListener('mouseout', () => {
+      reviewStars.forEach((s, i) => {
+        if (i < currentRating) {
+        s.classList.remove('fa-star-o');
+        s.classList.add('fa-star');
+        } else {
+        s.classList.remove('fa-star');
+        s.classList.add('fa-star-o');
+        }
+      });
+      });
+
+      star.addEventListener('click', () => {
+      currentRating = index + 1;
+      for (let i = 0; i <= index; i++) {
+        reviewStars[i].classList.remove('fa-star-o');
+        reviewStars[i].classList.add('fa-star');
+      }
+      for (let i = index + 1; i < reviewStars.length; i++) {
+        reviewStars[i].classList.remove('fa-star');
+        reviewStars[i].classList.add('fa-star-o');
+      }
+      });
+    });
+
+    const qtyInput = document.querySelector('input[name="quantity"]');
+    const reduceBtn = document.querySelector('.qty-control__reduce');
+    const increaseBtn = document.querySelector('.qty-control__increase');
+
+    if (reduceBtn && increaseBtn && qtyInput) {
+      reduceBtn.addEventListener('click', () => {
+      const currentValue = parseInt(qtyInput.value);
+      if (currentValue > 1) {
+        qtyInput.value = currentValue - 1;
+      }
+      });
+
+      increaseBtn.addEventListener('click', () => {
+      const currentValue = parseInt(qtyInput.value);
+      qtyInput.value = currentValue + 1;
+      });
+
+      qtyInput.addEventListener('change', function () {
+      if (this.value < 1 || isNaN(this.value)) {
+        this.value = 1;
+      }
+      });
+    }
+
+    const tabButtons = document.querySelectorAll('#productTabs .nav-link');
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+      tabButtons.forEach(btn => {
+        btn.style.borderBottom = '2px solid transparent';
+      });
+      if (button.classList.contains('active')) {
+        button.style.borderBottom = '2px solid var(--primary-color)';
+      }
+      });
+    });
+    document.querySelector('#productTabs .nav-link.active').style.borderBottom = '2px solid var(--primary-color)';
+    });
+  </script>
 @endpush

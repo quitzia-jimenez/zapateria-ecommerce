@@ -12,7 +12,9 @@
     font-weight: 500; }
 </style>
 @endsection
+@push('scripts')
 
+@endpush
 @section('content')
 <main>
    <!-- Hero Banner -->
@@ -356,8 +358,6 @@
     <input type="hidden" name="min" id="hdnMinPrice" value="{{$min_price}}"/>
     <input type="hidden" name="max" id="hdnMaxPrice" value="{{$max_price}}"/>
   </form>
-
-
 
 @endsection
 
