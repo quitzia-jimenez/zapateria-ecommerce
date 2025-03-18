@@ -48,7 +48,15 @@
                                     <td>${{$order->subtotal}}</td>
                                     <td>${{$order->tax}}</td>
                                     <td>${{$order->total}}</td>
-                                    <td>{{$order->status}}</td>
+                                    <td>
+                                        @if($order->status == 'enviado')
+                                            <span >Enviado</span>
+                                        @elseif($order->status == 'cancelado')
+                                            <span>Cancelado</span>
+                                        @else
+                                            <span>Ordenado</span>
+                                        @endif
+                                    </td>
                                     <td>{{$order->created_at}}</td>
                                     <td>{{$order->orderItems->count()}}</td>
                                     <td>{{$order->delivered_date}}</td>

@@ -25,6 +25,10 @@
                         <p>Detalle de mi pedido.</p>
                     </div>
                     <div class="table-responsive">
+                        @if(Session::has('status'))
+                            <p class='alert alert-success'>{{Session::get('status')}}</p>
+
+                        @endif
                         <table class="table">
                             <thead>
                                 <tr>
@@ -150,12 +154,12 @@
                                     <td>{{$transaction->mode}}</td>
                                     <th>Estatus</th>
                                     <td>
-                                        @if($transaction->status == 'completado')
-                                            <span class="badge badge-success">Completado</span>
+                                        @if($transaction->status == 'completada')
+                                            <span class="">Completado</span>
                                         @elseif($transaction->status == 'declinada')
-                                            <span class="badge badge-success">Declinado</span>
+                                            <span class="">Declinado</span>
                                         @elseif($transaction->status == 'reembolsado')
-                                            <span class="badge badge-success">Reembolsado</span>
+                                            <span class="">Reembolsado</span>
                                         @else
                                             <span class="">Pendiente</span>
                                         @endif  
@@ -168,6 +172,23 @@
                     
 
                 </div>
+
+                @if($order->status == 'ordenado')
+                <!-- Editar Estado Section -->
+                <div class="contenido-perfil-cliente" id="orders-section">
+                    <div class="section-header">
+                        <p>Cancelar mi pedido.</p>
+                    </div>
+                    <form action="{{route('user.order.cancel')}}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="order_id" value="{{$order->id}}"/>
+                            <div class="row">
+                                 <button type="submit" class="btn btn-danger cancel-order">Cancelar pedido</button>
+                            </div>
+                    </form>
+                </div>
+                @endif
                 
                 
             </div>
@@ -180,6 +201,28 @@
 
 
 @endsection
+@push('scripts')
+<script>
+    $(function(){
+        $('.cancel-order').on('click', function(e){
+            e.preventDefault();
+            var form = $(this).closest('form');
+            swal({
+                title: "¿Estás seguro?",
+                text: "Quieres cancelar el pedido!?",
+                icon: "warning",
+                buttons: ["Cancelar", "Sí, eliminar!"],
+                confirmButtonColor: '#d33',
+            }).then(function(result){
+                    if(result){
+                        form.submit();
+                    }
+
+                });
+            });
+        });
+</script>
+@endpush
 
 @section('scripts')
     <script src="{{asset('recursos/user/js/index.js')}}"></script>
