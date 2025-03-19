@@ -15,6 +15,8 @@ use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\Transaction;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -222,10 +224,10 @@ class AdminController extends Controller
     public function product_edit($id)
     {
         $product = Product::find($id);
-    $categories = Category::select('id', 'name')->orderBy('name')->get();
-    $sizes = Size::all(); // Cargar todas las tallas
-    $productSizes = $product->sizes->pluck('pivot.quantity', 'id')->toArray(); // Obtener las tallas seleccionadas con sus cantidades
-    return view('admin.product-edit', compact('product', 'categories', 'sizes', 'productSizes'));
+        $categories = Category::select('id', 'name')->orderBy('name')->get();
+        $sizes = Size::all(); // Cargar todas las tallas
+        $productSizes = $product->sizes->pluck('pivot.quantity', 'id')->toArray(); // Obtener las tallas seleccionadas con sus cantidades
+        return view('admin.product-edit', compact('product', 'categories', 'sizes', 'productSizes'));
     }
 
     public function product_update(Request $request)
@@ -457,6 +459,51 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('status', 'El estado del pedido se actualizo con exito!');
     }
+
+
+    public function users()
+    {
+        $users = User::orderBy('id', 'DESC')->paginate(12);
+        return view('admin.users', compact('users'));
+    }
+
+    public function user_edit($id)
+    {
+        $user = User::find($id);
+        return view('admin.user-edit',compact('user'));
+    }
+
+    public function user_update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'mobile' => 'required|string|max:15',
+            'untype' => 'required|string',
+            'old_password' => 'nullable|string|min:8',
+            'new_password' => 'nullable|string|min:8|confirmed',
+        ]);
+    
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->mobile = $request->mobile;
+        $user->untype = $request->untype;
+    
+        if ($request->filled('old_password') && $request->filled('new_password')) {
+            if (Hash::check($request->old_password, $user->password)) {
+                $user->password = Hash::make($request->new_password);
+            } else {
+                return redirect()->back()->withErrors(['old_password' => 'La contraseña antigua no es correcta']);
+            }
+        }
+    
+        $user->save();
+    
+        return redirect()->route('admin.users')->with('status', 'El usuario ha sido actualizado con éxito');
+    }
+
+
 }
 
 
