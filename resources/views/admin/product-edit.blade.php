@@ -135,6 +135,19 @@
                     </div>
                     @error('featured') <span class="text-danger">{{ $message }}</span> @enderror
                     
+                    <div class="form-group">
+                        <label for="sizes">Tallas</label>
+                        <div>
+                            @foreach($sizes as $size)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="sizes[]" id="size_{{ $size->id }}" value="{{ $size->id }}" onchange="toggleQuantityInput({{ $size->id }})" {{ in_array($size->id, array_keys($productSizes)) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="size_{{ $size->id }}">{{ $size->size }}</label>
+                                    <input type="number" name="quantities[{{ $size->id }}]" id="quantity_{{ $size->id }}" class="form-control" placeholder="Cantidad" value="{{ $productSizes[$size->id] ?? '' }}" style="{{ in_array($size->id, array_keys($productSizes)) ? 'display: block;' : 'display: none;' }} margin-top: 10px;">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @error('sizes') <span class="text-danger">{{ $message }}</span> @enderror
 
                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
 
@@ -186,6 +199,17 @@
         return Text.toLowerCase()
         .replace(/[^\w ]+/g, "")
         .replace(/ +/g, "-");
+    }
+
+    function toggleQuantityInput(sizeId) {
+        var checkbox = document.getElementById('size_' + sizeId);
+        var quantityInput = document.getElementById('quantity_' + sizeId);
+        if (checkbox.checked) {
+            quantityInput.style.display = 'block';
+        } else {
+            quantityInput.style.display = 'none';
+            quantityInput.value = ''; // Clear the quantity input when the checkbox is unchecked
+        }
     }
 
 </script>

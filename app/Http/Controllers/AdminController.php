@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Product;
+use App\Models\sizes;
 use App\Models\Transaction;
 
 class AdminController extends Controller
@@ -124,7 +125,8 @@ class AdminController extends Controller
     public function product_add()
     {
         $categories = Category::select('id','name')->orderBy('name')->get();
-        return view('admin.product-add', compact('categories'));
+        $sizes = sizes::all();
+        return view('admin.product-add', compact('categories', 'sizes'));
     }
 
     public function product_store(Request $request)
@@ -141,7 +143,9 @@ class AdminController extends Controller
             'featured' => 'required',
             'quantity' => 'required|numeric',
             'image' => 'required|mimes:jpg,png,jpeg|max:2048',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'sizes' => 'required|array', // Validar que las tallas sean un array
+            'quantities' => 'required|array', // Validar que las cantidades sean un array
         ]);
 
         $product = new Product();
@@ -193,6 +197,14 @@ class AdminController extends Controller
         $product->images = $gallery_images;
         $product->save();
 
+        $sizes = $request->sizes;
+        $quantities = $request->quantities;
+        $sizeQuantities = [];
+        foreach ($sizes as $sizeId) {
+            $sizeQuantities[$sizeId] = ['quantity' => $quantities[$sizeId]];
+        }
+        $product->sizes()->sync($sizeQuantities);
+
         return redirect()->route('admin.products')->with('status', 'El producto se creo con exito!');
     }   
     public function GenerateProductThumbnailImage($image, $imageName)
@@ -214,7 +226,8 @@ class AdminController extends Controller
     {
         $product = Product::find($id);
         $categories = Category::select('id','name')->orderBy('name')->get();
-        return view('admin.product-edit', compact('product','categories'));
+        $sizes = sizes::all();
+        return view('admin.product-edit', compact('product','categories','sizes'));
     }
 
     public function product_update(Request $request)
@@ -231,7 +244,9 @@ class AdminController extends Controller
             'featured' => 'required',
             'quantity' => 'required|numeric',
             'image' => 'mimes:jpg,png,jpeg|max:2048',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'sizes' => 'required|array', // Validar que las tallas sean un array
+            'quantities' => 'required|array', // Validar que las cantidades sean un array
         ]);
 
         $product = Product::find($request->id);
@@ -305,6 +320,14 @@ class AdminController extends Controller
         }
         
         $product->save();
+       // Actualizar las tallas seleccionadas con sus cantidades
+        $sizes = $request->sizes;
+        $quantities = $request->quantities;
+        $sizeQuantities = [];
+        foreach ($sizes as $sizeId) {
+            $sizeQuantities[$sizeId] = ['quantity' => $quantities[$sizeId]];
+        }
+        $product->sizes()->sync($sizeQuantities);
 
         return redirect()->route('admin.products')->with('status', 'El producto ha sido editado con exito!');
     }

@@ -112,7 +112,13 @@
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0 fs-4">{{$product->quantity}}</h6>
                                             </td>
-                                            
+                                            <td class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0 fs-4">
+                                                    @foreach ($product->sizes as $size)
+                                                        {{ $size->size }} ({{ $size->pivot->quantity }})<br>
+                                                    @endforeach
+                                                </h6>
+                                            </td>
                                             <td>
                                                 <div class="list-icon-function">
                                                     <a href="#">
