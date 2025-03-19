@@ -9,6 +9,7 @@ use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Product;
@@ -54,9 +55,6 @@ class AdminController extends Controller
 
         return redirect()->route('admin.categories')->with('status', 'La categoria se creo con exito!');
     }
-
-    
-
 
     public function GenerateCategoryThumbailsImage($image, $imageName)
     {
@@ -221,7 +219,6 @@ class AdminController extends Controller
             $constraint->aspectRatio();
         })->save($destinationPathThumbnail.'/'.$imageName);
     }
-
     public function product_edit($id)
     {
         $product = Product::find($id);
