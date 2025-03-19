@@ -240,6 +240,16 @@
         <p class="lead" style="font-size: 1rem; line-height: 1.6;">{{$product->short_description}}</p>
         </div>
 
+        <!-- Tallas Disponibles -->
+        <div class="mb-4">
+          <label for="sizes" class="form-label">Tallas disponibles:</label>
+          <div id="sizes">
+            @foreach($sizes as $size)
+              <span class="badge bg-secondary me-2">{{ $size->size }}</span>
+            @endforeach
+          </div>
+        </div>
+
         <!-- Add to Cart Form -->
         @if(Cart::instance('cart')->content()->where('id', $product->id)->count() > 0)
       <a href="{{route('cart.index')}}" class="btn btn-warning mb-4 py-2 px-4 fw-semibold"

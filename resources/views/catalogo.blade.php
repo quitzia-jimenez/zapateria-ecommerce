@@ -53,7 +53,7 @@
                 @foreach($categories as $category)
                 <li>
                   <span class="menu-link py-1">
-                    <input type="checkbox" class="chk-category" name="categories" value="{{$category->id}}" 
+                    <input type="checkbox" class="chk-category hdnCategories" name="categories" value="{{$category->id}}" 
                       @if(in_array($category->id,explode(',',$f_categories))) checked="checked" @endif
                     />
                     {{$category->name}}
@@ -84,7 +84,7 @@
                   Tallas
                 </a>
               </h5>
-              <div class="collapse" id="collapseSizes">
+              <div class="collapse hdnZises" id="collapseSizes">
                 <div class="size-options">
                   @foreach($sizes as $size)
                     <a href="{{ route('shop.index', array_merge(request()->query(), ['size' => $size->size])) }}" class="size-btn {{ request()->query('size') == $size->size ? 'active' : '' }}">
@@ -125,25 +125,19 @@
     
 
           <div class="featured-categories">
+            @foreach($categories as $category)
             <div class="category-badge">
               <img src="https://florsheimshoes.com.mx/wp-content/uploads/2022/10/00046pri.jpg" alt="Formales">
-              <span>Formales</span>
+              <span value="{{$category->id}}" 
+                @if(in_array($category->id,explode(',',$f_categories))) @endif>
+                {{$category->name}}</span>
             </div>
-            <div class="category-badge">
-              <img src="https://www.varugu.com/cdn/shop/files/tenis-zapatos-formales.jpg?v=1722296599&width=1445"
-                alt="Casuales">
-              <span>Casuales</span>
-            </div>
-            <div class="category-badge">
-              <img src="https://http2.mlstatic.com/D_NQ_NP_995342-MLM78769631922_092024-O.webp" alt="Deportivos">
-              <span>Deportivos</span>
-            </div>
-            <div class="category-badge">
-              <img
-                src="https://fredzapaterias.com.mx/cdn/shop/collections/zapatos-de-vestir-hombre-casuales-flexi-quirelli-brantano-lobo-solo-gino-compra-online-zapateria-fred-precio-flexi-tienda-compra-aqui_1200x1200.webp?v=1699030754"
-                alt="Botas">
-              <span>Botas</span>
-            </div>
+            @endforeach
+
+           
+            
+            
+            
           </div>
 
           <div class="products-grid">
@@ -358,9 +352,10 @@
 
   <form id="frmfilter" method="GET" action="{{route('shop.index')}}">
     <input type="hidden" name="page" value="{{$products->currentPage()}}">
-    <input type="hidden" name="size" id="size" value="{{$size}}"/>
+    <input type="hidden" name="sizep" id="sizep" value="{{$sizep}}"/>
     <input type="hidden" name="order" id="order" value="{{$order}}"/>
     <input type="hidden" name="categories" id="hdnCategories"/>
+    <input type="hidden" name="sizes" id="hdnZises"/>
     <input type="hidden" name="min" id="hdnMinPrice" value="{{$min_price}}"/>
     <input type="hidden" name="max" id="hdnMaxPrice" value="{{$max_price}}"/>
   </form>
@@ -371,7 +366,7 @@
 <script>
   $(function(){
     $("#pagesize").on('change', function(){
-      $("#size").val($(this).val());
+      $("#sizep").val($(this).val());
       $("#frmfilter").submit();
     });
     $("#orderby").on('change', function(){
@@ -391,6 +386,21 @@
         }
       });
       $("#hdnCategories").val(categories);
+      $("#frmfilter").submit();
+    });
+    $("input[name='zises']").on('change', function(){
+      var zises = "";
+      $("input[name='zises']:checked").each(function(){
+        if(zises == "")
+        {
+          zises +=$(this).val();
+        }
+        else
+        {
+          zises += "," + $(this).val();
+        }
+      });
+      $("#hdnZises").val(zises);
       $("#frmfilter").submit();
     });
     $('.price-range-slider').slider({
