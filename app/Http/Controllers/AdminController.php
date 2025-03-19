@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Models\Product;
-use App\Models\sizes;
+use App\Models\Size;
 use App\Models\Transaction;
 
 class AdminController extends Controller
@@ -125,7 +125,7 @@ class AdminController extends Controller
     public function product_add()
     {
         $categories = Category::select('id','name')->orderBy('name')->get();
-        $sizes = sizes::all();
+        $sizes = Size::all();
         return view('admin.product-add', compact('categories', 'sizes'));
     }
 
@@ -225,9 +225,10 @@ class AdminController extends Controller
     public function product_edit($id)
     {
         $product = Product::find($id);
-        $categories = Category::select('id','name')->orderBy('name')->get();
-        $sizes = sizes::all();
-        return view('admin.product-edit', compact('product','categories','sizes'));
+    $categories = Category::select('id', 'name')->orderBy('name')->get();
+    $sizes = Size::all(); // Cargar todas las tallas
+    $productSizes = $product->sizes->pluck('pivot.quantity', 'id')->toArray(); // Obtener las tallas seleccionadas con sus cantidades
+    return view('admin.product-edit', compact('product', 'categories', 'sizes', 'productSizes'));
     }
 
     public function product_update(Request $request)

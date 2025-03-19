@@ -79,24 +79,19 @@
               </div>
           </div>
             <div class="filter-group">
-              <h5>Tallas</h5>
-              <div class="size-options">
-                <button class="size-btn">25</button>
-                <button class="size-btn">26</button>
-                <button class="size-btn">27</button>
-                <button class="size-btn">28</button>
-                <button class="size-btn">29</button>
-                <button class="size-btn">30</button>
-              </div>
-            </div>
-            <div class="filter-group">
-              <h5>Color</h5>
-              <div class="color-options">
-                <button class="color-btn" style="background-color: #000;"></button>
-                <button class="color-btn" style="background-color: #964b00;"></button>
-                <button class="color-btn" style="background-color: #d8d8d8;"></button>
-                <button class="color-btn" style="background-color: #2b2d42;"></button>
-                <button class="color-btn" style="background-color: #fff; border: 1px solid #ddd;"></button>
+              <h5>
+                <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseSizes" role="button" aria-expanded="false" aria-controls="collapseSizes">
+                  Tallas
+                </a>
+              </h5>
+              <div class="collapse" id="collapseSizes">
+                <div class="size-options">
+                  @foreach($sizes as $size)
+                    <a href="{{ route('shop.index', array_merge(request()->query(), ['size' => $size->size])) }}" class="size-btn {{ request()->query('size') == $size->size ? 'active' : '' }}">
+                      {{ $size->size }}
+                    </a>
+                  @endforeach
+                </div>
               </div>
             </div>
             <button class="btn btn-primary filter-apply-btn">Aplicar Filtros</button>
@@ -109,11 +104,11 @@
               <p><span class="product-count">24</span> productos encontrados</p>
             </div>
               <div class="catalog-sort">
-                <select class="form-select" aria-label="Page Size" id="pagesize" name="pagesize">
-                    <option value="12" {{ $size==12 ? 'selected' : ''}}>Mostrar</option>
-                    <option value="24" {{ $size==24 ? 'selected' : ''}}>24</option>
-                    <option value="48" {{ $size==48 ? 'selected' : ''}}>48</option>
-                    <option value="102" {{ $size==102 ? 'selected' : ''}}>102</option>
+                <select class="form-select" aria-label="Tamaño de pagina" id="pagesize" name="pagesize">
+                    <option value="12" {{ $sizep==12 ? 'selected' : ''}}>Mostrar</option>
+                    <option value="24" {{ $sizep==24 ? 'selected' : ''}}>24</option>
+                    <option value="48" {{ $sizep==48 ? 'selected' : ''}}>48</option>
+                    <option value="102" {{ $sizep==102 ? 'selected' : ''}}>102</option>
                 </select>
             </div>
             <div class="catalog-sort">
