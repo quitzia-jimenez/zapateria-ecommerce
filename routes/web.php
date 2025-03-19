@@ -78,5 +78,6 @@ Route::middleware(['auth',AuthAdmin::class])->group(function () {
     Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
     Route::get('/admin/order/details/{order_id}', [AdminController::class, 'order_details'])->name('admin.order.details');
     Route::put('/admin/order/update-status', [AdminController::class, 'update_order_status'])->name('admin.order.status.update');
+    Route::post('/upload-receipt/{order_id}', [CartController::class, 'uploadReceipt'])->name('receipt.upload');
 });
 

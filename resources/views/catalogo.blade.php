@@ -16,6 +16,17 @@
 
 @endpush
 @section('content')
+
+<!-- Mensajes Flash -->
+@if(session('success'))
+<div class="container mt-3">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>¡Éxito!</strong> Tu compra la puedes ver en tus compras, tu comprobante se ha recibido correctamente.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
+
 <main>
    <!-- Hero Banner -->
  <section class="catalog-hero">

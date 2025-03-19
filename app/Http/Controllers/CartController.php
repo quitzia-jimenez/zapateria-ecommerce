@@ -178,6 +178,11 @@ class CartController extends Controller
         $order->country = $address->country;
         $order->landmark = $address->landmark;
         $order->postcode = $address->postcode;
+        do {
+            $reference_code = strtoupper(substr(md5(uniqid($order->user_id . $order->subtotal . $order->total . $order->created_at, true)), 0, 10));
+        } while (Order::where('reference_code', $reference_code)->exists());
+
+        $order->reference_code = $reference_code;
         $order->save();
 
         foreach (Cart::instance('cart')->content() as $item) {
@@ -241,5 +246,40 @@ class CartController extends Controller
             return view('order-confirmation', compact('order'));
         }
         return redirect()->route('cart.index');
+    }
+
+    public function uploadReceipt(Request $request, $order_id)
+    {
+        $request->validate([
+            'receipt' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ], [
+            'receipt.required' => 'Debes adjuntar un comprobante de pago',
+            'receipt.image' => 'El archivo debe ser una imagen',
+            'receipt.mimes' => 'El formato debe ser JPG, PNG o JPEG',
+            'receipt.max' => 'El tamaño máximo permitido es 2MB',
+        ]);
+    
+        $order = Order::find($order_id);
+        if (!$order || $order->user_id != Auth::user()->id) {
+            return redirect()->back()->with('error', 'Orden no encontrada o no autorizada');
+        }
+
+        if ($request->hasFile('receipt')) {
+            $file = $request->file('receipt');
+
+            $fileName = 'receipt_' . $order_id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('receipts', $fileName, 'public');
+            $order->image_proof = $path;
+            $order->save();
+            $transaction = Transaction::where('order_id', $order_id)->first();
+            if ($transaction && $transaction->status == 'pendiente') {
+                $transaction->status = 'en_comprobacion';
+                $transaction->save();
+            }
+            
+            return redirect('/catalogo')->with('success', 'Comprobante de pago subido correctamente');
+        }
+        
+        return redirect()->back()->with('error', 'Error al subir el comprobante de pago');
     }
 }

@@ -11,6 +11,8 @@
   <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/indexcss.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/swiper.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/custom.css')}}">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
 @endsection
 
 @section('content')
@@ -63,8 +65,34 @@
             fill="white" />
         </svg>
         <h3 style="font-weight: 700; margin-bottom: 1rem; color: #434343; font-size: 1.75rem;">¡Tu orden ha sido
-          completada!</h3>
+          registrada!</h3>
         <p style="color: #7a7a7a; font-size: 1.1rem;">Gracias. Tu orden ha sido recibida</p>
+
+        <!-- Pasos de pago añadidos aquí -->
+        <div class="payment-steps"
+          style="margin-top: 1.5rem; text-align: left; background-color: #fdf4f9; border-radius: 8px; padding: 1.5rem; border-left: 4px solid #d769a3;">
+          <h4 style="font-weight: 600; color: #434343; margin-bottom: 1rem;">¿Cómo completar tu pago?</h4>
+          <ol style="padding-left: 1.5rem; margin-bottom: 0;">
+            <li style="margin-bottom: 0.75rem; color: #434343;">
+              <strong>Realiza tu transferencia</strong> a la cuenta BOMU con clave <strong>123456789</strong> en
+              bancoejemplo.
+              No olvides incluir el número de referencia <strong>{{$order->reference_code}}</strong> como concepto.
+            </li>
+            <li style="margin-bottom: 0.75rem; color: #434343;">
+              <strong>Guarda tu comprobante</strong> de transferencia (ticket o captura de pantalla) como evidencia de
+              tu pago.
+            </li>
+            <li style="margin-bottom: 0.75rem; color: #434343;">
+              <strong>Sube tu comprobante</strong> en el formulario de abajo o en cualquier momento desde la sección
+              "Mis pedidos"
+              dentro de las próximas 48 horas.
+            </li>
+            <li style="color: #434343;">
+              <strong>¡Listo!</strong> Una vez confirmado tu pago, te notificaremos cuando tu pedido esté listo para
+              recoger.
+            </li>
+          </ol>
+        </div>
       </div>
 
       <div class="order-info"
@@ -96,6 +124,54 @@
             de pago</label>
           <span
             style="display: block; font-weight: 700; color: #434343; font-size: 1.1rem;">{{$order->transaction->mode}}</span>
+        </div>
+      </div>
+
+      <div class="order-info__item"
+        style="background-color: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); padding: 1.5rem; text-align: center;">
+        <div class="barcode-container" style="margin-bottom: 1.5rem;">
+          <svg id="referenceBarcode"></svg>
+        </div>
+        <span
+          style="display: block; font-weight: 700; color: #434343; font-size: 1.1rem;">{{$order->reference_code}}</span>
+      </div>
+
+      <div class="checkout__totals-wrapper mt-4">
+        <div class="checkout__totals"
+          style="background-color: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); padding: 1.5rem;">
+          <h3
+            style="font-weight: 700; margin-bottom: 1.5rem; color: #434343; position: relative; padding-bottom: 0.75rem; border-bottom: 2px solid #eee;">
+            Subir comprobante de pago
+          </h3>
+
+          <form action="{{ route('receipt.upload', ['order_id' => $order->id]) }}" method="POST"
+            enctype="multipart/form-data" class="text-center">
+            @csrf
+            <div class="mb-4">
+              <label for="receipt" class="form-label d-block mb-3" style="font-weight: 500; color: #7a7a7a;">
+                Adjunta una foto de tu comprobante de pago
+              </label>
+
+              <div class="file-upload-wrapper" style="position: relative; margin: 0 auto; max-width: 400px;">
+                <input type="file" id="receipt" name="receipt" accept="image/*" class="form-control"
+                  style="padding: 12px; border: 2px dashed #d769a3; border-radius: 8px; width: 100%; background-color: #fdf4f9;">
+
+                <label for="receipt" class="custom-file-label d-block mt-2"
+                  style="cursor: pointer; color: #d769a3; font-weight: 600;">
+                  <i class="fas fa-cloud-upload-alt me-2"></i> Seleccionar archivo
+                </label>
+              </div>
+
+              <small class="text-muted d-block mt-2" style="font-size: 0.85rem; color: #7a7a7a;">
+                Formatos permitidos: JPG, PNG, JPEG. Tamaño máximo: 2MB
+              </small>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3"
+              style="display: inline-block; padding: 0.75rem 2rem; border-radius: 8px; background-color: #d769a3; color: white; text-align: center; font-weight: 600; text-decoration: none; border: none; box-shadow: 0 4px 10px rgba(215, 105, 164, 0.3); transition: all 0.3s ease;">
+              Subir comprobante
+            </button>
+          </form>
         </div>
       </div>
 
@@ -172,3 +248,20 @@
   </section>
 </main>
 @endSection
+
+@push('scripts')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    JsBarcode("#referenceBarcode", "{{$order->reference_code}}", {
+      format: "CODE128",
+      lineColor: "#434343",
+      width: 2,
+      height: 60,
+      displayValue: false,
+      margin: 10,
+      background: "#ffffff"
+    });
+    });
+  </script>
+@endpush
