@@ -59,8 +59,11 @@ class CartController extends Controller
     {
         $coupon_code = $request->coupon_code;
         if (isset($coupon_code)) {
-            $coupon = Coupon::where('code', $coupon_code)->where('expiry_date', '>=', Carbon::today())
-                ->where('cart_value', '<=', Cart::instance('cart')->subtotal())->first();
+            $coupon = Coupon::where('code', $coupon_code)
+                ->where('expiry_date', '>=', Carbon::today())
+                ->where('cart_value', '<=', Cart::instance('cart')->subtotal())
+                ->first();
+
             if (!$coupon) {
                 return redirect()->back()->with('error', 'Cupon invalido');
             } else {
@@ -96,8 +99,6 @@ class CartController extends Controller
                 'subtotal' => number_format(floatval($subtotalAfterDiscount), 2, '.', ''),
                 'tax' => number_format(floatval($taxAfterDiscount), 2, '.', ''),
                 'total' => number_format(floatval($totalAfterDiscount), 2, '.', ''),
-
-
             ]);
         }
     }

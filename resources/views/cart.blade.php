@@ -150,31 +150,29 @@
         </tbody>
       </table>
 
-      <div class="cart-table-footer"
-        style="display: flex; justify-content: space-between; padding: 1.5rem; background-color: #f8f9fa; flex-wrap: wrap; gap: 1rem;">
-        @if(!Session::has('coupon'))
-      <form action="{{route('cart.coupon.apply')}}" method="POST" class="position-relative bg-body"
-      style="flex: 1; min-width: 250px;">
-      @csrf
-      <input class="form-control" type="text" name="coupon_code" placeholder="Código de Cupón" value=""
-        style="height: 48px; border: 1px solid #eee; border-radius: 8px; padding-right: 120px;">
-      <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
-        value="Aplicar cupón"
-        style="background: none; border: none; color: #d769a3; font-weight: 500; cursor: pointer; height: 100%; right: 0; top: 0;">
-      </form>
-    @else
-    <form action="{{route('cart.coupon.remove')}}" method="POST" class="position-relative bg-body"
-    style="flex: 1; min-width: 250px;">
-    @csrf
-    @method('DELETE')
-    <input class="form-control" type="text" name="coupon_code" placeholder="Código de Cupón"
-      value="@if(Session::has('coupon')){{Session::get('coupon')['code']}} Aplicado! @endif"
-      style="height: 48px; border: 1px solid #eee; border-radius: 8px; padding-right: 120px;">
-    <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
-      value="Borrar Cupón"
-      style="background: none; border: none; color: #d769a3; font-weight: 500; cursor: pointer; height: 100%; right: 0; top: 0;">
-    </form>
-  @endif
+      <div class="cart-table-footer" style="display: flex; justify-content: space-between; padding: 1.5rem; background-color: #f8f9fa; flex-wrap: wrap; gap: 1rem;">
+          @if(!Session::has('coupon'))
+          <form action="{{route('cart.coupon.apply')}}" method="POST" class="position-relative bg-body"
+              style="flex: 1; min-width: 250px;">
+              @csrf
+              <input class="form-control" type="text" name="coupon_code" placeholder="Código de Cupón" value=""
+                  style="height: 48px; border: 1px solid #eee; border-radius: 8px; padding-right: 120px;">
+              <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit" value="Aplicar cupón"
+                  style="background: none; border: none; color: #d769a3; font-weight: 500; cursor: pointer; height: 100%; right: 0; top: 0;">
+          </form>
+          @else
+          <form action="{{route('cart.coupon.remove')}}" method="POST" class="position-relative bg-body"
+              style="flex: 1; min-width: 250px;">
+              @csrf
+              @method('DELETE')
+              <input class="form-control" type="text" name="coupon_code" placeholder="Código de Cupón"
+                  value="@if(Session::has('coupon')){{Session::get('coupon')['code']}} Aplicado! @endif"
+                  style="height: 48px; border: 1px solid #eee; border-radius: 8px; padding-right: 120px;">
+              <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit" value="Borrar Cupón"
+                  style="background: none; border: none; color: #d769a3; font-weight: 500; cursor: pointer; height: 100%; right: 0; top: 0;">
+          </form>
+          @endif
+      </div>
 
         <form action="{{route('cart.empty')}}" method="POST">
         @csrf
