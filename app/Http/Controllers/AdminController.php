@@ -32,7 +32,7 @@ class AdminController extends Controller
                                 sum(if(status='ordenado',1,0)) As TotalOrdered,
                                 sum(if(status='enviado',1,0)) As TotalDelivered,
                                 sum(if(status='cancelado',1,0)) As TotalCanceled
-                                From Orders       
+                                From orders       
                                 ");
         return view ('admin.index',compact('orders','dashboardDatas'));
     }
