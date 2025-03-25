@@ -9,15 +9,6 @@
                     <div class="col-lg-12 d-flex align-items-stretch">
                         <div class="card w-100">
                             <div class="card-body p-4">
-                                <div class="d-flex align-items-right mb-4">
-                                    <form class="form-search d-flex">
-                                        <input type="text" id="searchInput" class="form-control me-2 w-30" placeholder="Buscar..." name="name" tabindex="2" value="" aria-required="true">
-                                        <button class="btn btn-primary d-flex align-items-center m-1"">
-                                            <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i> Buscar
-                                        </button>
-                                    </form>
-                                    <a href="#" class="btn btn-outline-primary d-flex align-items-center m-1"><i class="fa-solid fa-plus" style="color: #d63384;"></i>Agregar nuevo</a>
-                                </div>
                                 <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 align-middle">
                                         <thead class="text-dark fs-4">

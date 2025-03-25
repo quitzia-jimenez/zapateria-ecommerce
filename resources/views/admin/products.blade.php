@@ -12,12 +12,6 @@
                             <!-- Barra de búsqueda -->
 
                             <div class="d-flex align-items-right mb-4">
-                                <form class="form-search d-flex">
-                                    <input type="text" id="searchInput" class="form-control me-2 w-30" placeholder="Buscar..." name="name" tabindex="2" value="" aria-required="true">
-                                    <button class="btn btn-primary d-flex align-items-center m-1"">
-                                        <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i> Buscar
-                                    </button>
-                                </form>
                                 <a href="{{route('admin.product.add')}}" class="btn btn-outline-primary d-flex align-items-center m-1"><i class="fa-solid fa-plus" style="color: #d63384;"></i>Agregar nuevo</a>
                             </div>
 
@@ -190,5 +184,6 @@
                 });
             });
         });
+       
 </script>
 @endpush

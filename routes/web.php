@@ -84,6 +84,8 @@ Route::middleware(['auth',AuthAdmin::class])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
     Route::get('/admin/user/edit/{id}', [AdminController::class, 'user_edit'])->name('admin.user.edit');
     Route::put('/admin/user/update',[AdminController::class, 'user_update'])->name('admin.user.update');
+
+    Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
 });
 
 //ruta para ticket en pdf
