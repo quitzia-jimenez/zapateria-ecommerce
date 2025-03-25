@@ -6,13 +6,7 @@
         <div class="row">
             <!-- Sidebar -->
             <div class="col-lg-3">
-                <div class="slidebar-perfil-cliente">
-                    <div class="avatar-perfil-cliente">
-                        <img src=#" alt="Foto de perfil">
-                        <h4>{{Auth::user()->name}}</h4>
-                    </div>
-                    @include('user.account-nav')
-                </div>
+                @include('user.account-nav')
             </div>
 
             <div class="col-lg-9">
@@ -28,9 +22,6 @@
                                 <tr>
                                     <th>Pedido #</th>
                                     <th>Nombre</th>
-                                    <th>Telefono</th>
-                                    <th>Subtotal</th>
-                                    <th>I.V.A.</th>
                                     <th>Total</th>
                                     <th>Estado</th>
                                     <th>Fecha de pedido</th>
@@ -44,9 +35,6 @@
                                 <tr>
                                     <td>{{$order->id}}</td>
                                     <td>{{$order->name}}</td>
-                                    <td>{{$order->phone}}</td>
-                                    <td>${{$order->subtotal}}</td>
-                                    <td>${{$order->tax}}</td>
                                     <td>${{$order->total}}</td>
                                     <td>
                                         @if($order->status == 'enviado')

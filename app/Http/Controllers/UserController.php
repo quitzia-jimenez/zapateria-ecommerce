@@ -13,7 +13,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('user.index');
+        $orders = Order::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(5);
+        return view('user.index',compact('orders'));
     }
     
     public function orders()

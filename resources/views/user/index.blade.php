@@ -6,13 +6,9 @@
         <div class="row">
             <!-- Sidebar -->
             <div class="col-lg-3">
-                <div class="slidebar-perfil-cliente">
-                    <div class="avatar-perfil-cliente">
-                        <img src=#" alt="Foto de perfil">
-                        <h4>{{Auth::user()->name}}</h4>
-                    </div>
-                    @include('user.account-nav')
-                </div>
+                
+             @include('user.account-nav')
+                
             </div>
 
             <div class="col-lg-9">
@@ -65,34 +61,45 @@
                                 <thead>
                                     <tr>
                                         <th>Pedido #</th>
-                                        <th>Fecha</th>
-                                        <th>Estado</th>
+                                        <th>Nombre</th>
                                         <th>Total</th>
+                                        <th>Estado</th>
+                                        <th>Fecha de pedido</th>
+                                        <th>Productos</th>
+                                        <th>Fecha de envio</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($orders as $order)
                                     <tr>
-                                        <td>#BO-1452</td>
-                                        <td>15 Feb, 2025</td>
-                                        <td><span class="status-delivered">Entregado</span></td>
-                                        <td>$2,498.00</td>
-                                        <td><a href="#" class="view-order abrir-modal">Ver</a></td>
+                                        <td>{{$order->id}}</td>
+                                        <td>{{$order->name}}</td>
+                                        <td>${{$order->total}}</td>
+                                        <td>
+                                            @if($order->status == 'enviado')
+                                                <span >Enviado</span>
+                                            @elseif($order->status == 'cancelado')
+                                                <span>Cancelado</span>
+                                            @else
+                                                <span>Ordenado</span>
+                                            @endif
+                                        </td>
+                                        <td>{{$order->created_at}}</td>
+                                        <td>{{$order->orderItems->count()}}</td>
+                                        <td>{{$order->delivered_date}}</td>
+                                        <td>
+                                            <a href="{{route('user.order.details',['order_id'=>$order->id])}}" class="order-action"><i class="fas fa-eye"></i></a>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>#BO-1398</td>
-                                        <td>28 Ene, 2025</td>
-                                        <td><span class="status-processing">En proceso</span></td>
-                                        <td>$1,299.00</td>
-                                        <td><a href="#" class="view-order">Ver</a></td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <div class="contenido-perfil-cliente hidden" id="wishlist-section">
+                {{-- <div class="contenido-perfil-cliente hidden" id="wishlist-section">
                     <div class="section-header">
                         <h2>Mi Lista de Deseos</h2>
                         <p>Productos que te han gustado.</p>
@@ -310,7 +317,7 @@
                         <button class="btn btn-primary">Guardar Preferencias</button>
                     </div>
                     <button class="abrir-modal">Abrir modal</button>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
