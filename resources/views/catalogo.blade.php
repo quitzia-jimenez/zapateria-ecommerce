@@ -235,93 +235,6 @@
   </div>
 </section>
 
-<!-- Recently Viewed -->
-<section class="recently-viewed">
-  <div class="container">
-    <div class="section-title">
-      <h2>Vistos Recientemente</h2>
-    </div>
-    <div class="swiper recently-viewed-slider">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="product-card">
-            <div class="product-img">
-              <img src="https://florsheimshoes.com.mx/wp-content/uploads/2022/10/00046pri.jpg" alt="Zapato Oxford">
-              <div class="product-overlay">
-                <div class="product-options">
-                  <a href="#"><i class="fas fa-eye"></i></a>
-                  <a href="#"><i class="fas fa-heart"></i></a>
-                  <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="product-body">
-              <h5 class="product-title">Oxford Classic</h5>
-              <p class="product-price">$1,299.00</p>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="product-card">
-            <div class="product-img">
-              <img src="https://www.varugu.com/cdn/shop/files/tenis-zapatos-formales.jpg?v=1722296599&width=1445"
-                alt="Zapato Casual">
-              <div class="product-overlay">
-                <div class="product-options">
-                  <a href="#"><i class="fas fa-eye"></i></a>
-                  <a href="#"><i class="fas fa-heart"></i></a>
-                  <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="product-body">
-              <h5 class="product-title">Urban Comfort</h5>
-              <p class="product-price">$999.00</p>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="product-card">
-            <div class="product-img">
-              <img src="https://arantzaonline.com/cdn/shop/files/040316_7.jpg?v=1713826676" alt="Zapato Formal">
-              <div class="product-overlay">
-                <div class="product-options">
-                  <a href="#"><i class="fas fa-eye"></i></a>
-                  <a href="#"><i class="fas fa-heart"></i></a>
-                  <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="product-body">
-              <h5 class="product-title">Executive Plus</h5>
-              <p class="product-price">$1,499.00</p>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="product-card">
-            <div class="product-img">
-              <img src="https://http2.mlstatic.com/D_NQ_NP_995342-MLM78769631922_092024-O.webp" alt="Tenis deportivo">
-              <div class="product-overlay">
-                <div class="product-options">
-                  <a href="#"><i class="fas fa-eye"></i></a>
-                  <a href="#"><i class="fas fa-heart"></i></a>
-                  <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="product-body">
-              <h5 class="product-title">Running Pro</h5>
-              <p class="product-price">$1,799.00</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-    </div>
-  </div>
-</section>
 
 <!-- Promotion Banner -->
 <section class="promotion-banner">
@@ -330,8 +243,8 @@
       <div class="col-md-6 animate__animated animate__fadeInLeft">
         <div class="promotion-content">
           <h2>Descubre nuestra colección exclusiva</h2>
-          <p>Elegancia y comodidad. Aprovecha 15% de descuento en tu primera compra.</p>
-          <a href="#" class="btn btn-light">Comprar Ahora</a>
+          <p>Elegancia y comodidad. Aprovecha 15% de descuento apartando en linea. Utiliza BOMU15 para obtener descuento. Aplicado a compras mayores de $500</p>
+          <a href="{{route('shop.index')}}" class="btn btn-light">Comprar Ahora</a>
         </div>
       </div>
       <div class="col-md-6 animate__animated animate__fadeInRight">

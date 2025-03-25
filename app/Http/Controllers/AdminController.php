@@ -515,6 +515,16 @@ class AdminController extends Controller
         return redirect()->route('admin.users')->with('status', 'El usuario ha sido actualizado con éxito');
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $results = Product::where('name', 'like', "%{$query}%")->get()->take(8);
+        return response()->json($results);
+    }
+
+    
+
+
 
 }
 
