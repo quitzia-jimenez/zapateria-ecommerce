@@ -16,13 +16,25 @@ use App\Models\Product;
 use App\Models\Size;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        $orders = Order::orderBy('created_at', 'DESC')->get()->take(5);  
+        $dashboardDatas = DB::select("select sum(total) As TotalAmount,
+                                sum(if(status='ordenado',total,0)) As TotalOrderedAmount,
+                                sum(if(status='enviado',total,0)) As TotalDeliveredAmount,
+                                sum(if(status='cancelado',total,0)) As TotalCanceledAmount,
+                                Count(*) As Total,
+                                sum(if(status='ordenado',1,0)) As TotalOrdered,
+                                sum(if(status='enviado',1,0)) As TotalDelivered,
+                                sum(if(status='cancelado',1,0)) As TotalCanceled
+                                From Orders       
+                                ");
+        return view ('admin.index',compact('orders','dashboardDatas'));
     }
 
 
