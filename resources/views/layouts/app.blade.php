@@ -121,13 +121,13 @@
             <h5 class="widget-title text-uppercase mb-4" style="color: white">Todos los Links</h5>
             <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
               <li class="menu-item">
-                <a href="#" class="item-anchor" style="color: white">Principal</a>
+                <a href="{{route('home.index')}}" class="item-anchor" style="color: white">Principal</a>
               </li>
               <li class="menu-item">
                 <a href="{{route('shop.index')}}" class="item-anchor" style="color: white">Catalogo</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor" style="color: white">Nosotros</a>
+                <a href="{{route('home.nosotros')}}" class="item-anchor" style="color: white">Nosotros</a>
               </li>
             </ul>
           </div>
@@ -143,7 +143,7 @@
                 <a href="#" class="item-anchor" style="color: white">Retornos y cambios</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="item-anchor" style="color: white">Contactanos</a>
+                <a href="{{route('home.contact')}}" class="item-anchor" style="color: white">Contactanos</a>
               </li>
             </ul>
           </div>

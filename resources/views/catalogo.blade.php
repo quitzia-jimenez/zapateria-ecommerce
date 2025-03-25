@@ -101,7 +101,6 @@
           <div class="catalog-header">
             <div class="catalog-title">
               <h2>Todo</h2>
-              <p><span class="product-count">24</span> productos encontrados</p>
             </div>
               <div class="catalog-sort">
                 <select class="form-select" aria-label="Tamaño de pagina" id="pagesize" name="pagesize">
@@ -114,8 +113,8 @@
             <div class="catalog-sort">
                 <select class="form-select w-auto shop-acs__select" aria-label="Ordenar por" name="orderby" id="orderby">
                     <option value="-1" {{$order == -1 ? 'selected' : ''}}>Ordenar por</option>
-                    <option value="1" {{$order == 1 ? 'selected' : ''}}>Date: Nuevo a viejo</option>
-                    <option value="2" {{$order == 2 ? 'selected' : ''}}>Date: Viejo a nuevo</option>
+                    <option value="1" {{$order == 1 ? 'selected' : ''}}>Fecha: Pasados</option>
+                    <option value="2" {{$order == 2 ? 'selected' : ''}}>Fecha: Recientes</option>
                     <option value="3" {{$order == 3 ? 'selected' : ''}}>Precio: Menor a Mayor</option>
                     <option value="4" {{$order == 4 ? 'selected' : ''}}>Precio: Mayor a Menor</option>
                 </select>
