@@ -299,10 +299,12 @@ class CartController extends Controller
         );
 
         $barcodeBase64 = 'data:image/png;base64,' . base64_encode($barcode);
+        $logoBase64 = 'data:image/png;base64,' . base64_encode(file_get_contents('https://bomu-shop.com/recursos/user/img/bomu-logo.png'));
 
         $pdf = Pdf::loadView('pdfs.order-receipt', [
             'order' => $order,
-            'barcodeBase64' => $barcodeBase64
+            'barcodeBase64' => $barcodeBase64,
+            'logoBase64' => $logoBase64
         ]);
 
         return $pdf->download("orden-{$order->id}.pdf");
