@@ -98,8 +98,7 @@
         </h4>
         <ul class="shopping-cart__product-item__options"
         style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #7a7a7a;">
-        <li>Color: Yellow</li>
-        <li>Size: L</li>
+        <li>Size</li>
         </ul>
         </div>
         </td>
