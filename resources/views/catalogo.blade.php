@@ -69,12 +69,12 @@
             <div class="filter-group">
               <h5>Precio</h5>
               <div class="price-slider">
-                  <input type="text" class="price-range-slider" data-currency="$" data-slider-min="1" data-slider-max="3000"
+                  <input type="text" class="price-range-slider" data-currency="$" data-slider-min="50" data-slider-max="1000"
                       data-slider-step="5" data-slider-value="[{{$min_price}},{{$max_price}}]" value="" name="price_range"/>
                   <div class="price-range">
-                      <span>$1</span>
+                      <span>$50</span>
                       <span id="priceValue">${{$min_price}} - ${{$max_price}}</span>
-                      <span>$3000</span>
+                      <span>$1000</span>
                   </div>
               </div>
           </div>
@@ -127,7 +127,7 @@
           <div class="featured-categories">
             @foreach($categories as $category)
             <div class="category-badge">
-              <img src="https://florsheimshoes.com.mx/wp-content/uploads/2022/10/00046pri.jpg" alt="Formales">
+              <img src="{{asset('uploads/categories')}}/{{$category->image}}" alt="Formales">
               <span value="{{$category->id}}" 
                 @if(in_array($category->id,explode(',',$f_categories))) @endif>
                 {{$category->name}}</span>

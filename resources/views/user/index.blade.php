@@ -25,7 +25,7 @@
                                         <i class="fas fa-shopping-bag"></i>
                                     </div>
                                     <div class="stat-info">
-                                        <h3>5</h3>
+                                        <h3>1</h3>
                                         <p>Pedidos Totales</p>
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@
                                         <i class="fas fa-heart"></i>
                                     </div>
                                     <div class="stat-info">
-                                        <h3>12</h3>
+                                        <h3>2</h3>
                                         <p>Lista de Deseos</p>
                                     </div>
                                 </div>
@@ -44,14 +44,15 @@
                             <div class="col-md-4">
                                 <div class="card-inicio-stats">
                                     <div class="stat-icon">
-                                        <i class="fas fa-tag"></i>
+                                        <i class="fas fa-heart"></i>
                                     </div>
                                     <div class="stat-info">
-                                        <h3>2</h3>
-                                        <p>Cupones Disponibles</p>
+                                        <h3>4</h3>
+                                        <p>Carrito</p>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="recent-orders">

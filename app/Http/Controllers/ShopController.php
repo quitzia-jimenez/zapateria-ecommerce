@@ -16,8 +16,8 @@ class ShopController extends Controller
         $o_order = "";
         $order = $request->query('order') ? $request->query('order') : -1;
         $f_categories = $request->query('categories');
-        $min_price = $request->query('min') ? $request->query('min') : 1;
-        $max_price = $request->query('max') ? $request->query('max') : 3000;
+        $min_price = $request->query('min') ? $request->query('min') : 50;
+        $max_price = $request->query('max') ? $request->query('max') : 1000;
         $f_size = $request->query('size'); // Obtener la talla seleccionada
 
         switch ($order) {

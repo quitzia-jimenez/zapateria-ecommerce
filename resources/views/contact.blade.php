@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@push('styles')
+@section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/contactcss.css')}}">
 
-@endpush
+@endsection
 
 @section('content')
   <!-- Contact Info Section -->
@@ -15,7 +15,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <h4>Ubicación</h4>
-                    <p>Av. Reforma Sur #456, Tlaxcala<br>Tlaxcala, México</p>
+                    <p>Av Cuauhtémoc 1102L 90300 Apizaco Centro, Mexico</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -84,10 +84,7 @@
                         <p>Visítanos en nuestra tienda principal para descubrir nuestra colección completa.</p>
                     </div>
                     <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30156.678883017864!2d-98.24656564999999!3d19.3147212!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfd88c93cb5c1d%3A0x7f981348cb5e27!2sTlaxcala%20de%20Xicohténcatl%2C%20Tlax.!5e0!3m2!1ses-419!2smx!4v1709731968689!5m2!1ses-419!2smx"
-                            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.0332118381907!2d-98.14541882603942!3d19.410970941373698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d020229224c757%3A0xb98234f1511ef4d3!2sAv%20Cuauht%C3%A9moc%201102L%2C%20Centro%2C%2090300%20Centro%2C%20Tlax.!5e0!3m2!1ses!2smx!4v1742885164453!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

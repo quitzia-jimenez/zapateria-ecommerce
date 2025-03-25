@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@push('styles')
+@section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('recursos/user/css/nosotroscss.css')}}">
 
-@endpush
+@endsection 
 
 @section('content')
 <!-- About Hero Section-->
