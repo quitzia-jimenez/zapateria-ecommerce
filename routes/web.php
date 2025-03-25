@@ -86,3 +86,5 @@ Route::middleware(['auth',AuthAdmin::class])->group(function () {
     Route::put('/admin/user/update',[AdminController::class, 'user_update'])->name('admin.user.update');
 });
 
+//ruta para ticket en pdf
+Route::get('/order/{orderId}/pdf', [CartController::class, 'generatePDF'])->name('user.ticket');

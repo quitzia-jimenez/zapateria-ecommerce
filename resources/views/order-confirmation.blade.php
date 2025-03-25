@@ -93,6 +93,9 @@
             </li>
           </ol>
         </div>
+        <a href="{{ route('user.ticket', ['orderId' => $order->id]) }}" class="btn btn-primary">
+          Descargar PDF
+        </a>
       </div>
 
       <div class="order-info"

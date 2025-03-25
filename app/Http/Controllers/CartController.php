@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Surfsidemedia\Shoppingcart\Facades\Cart;
 
+use Picqer\Barcode\BarcodeGeneratorPNG;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class CartController extends Controller
 {
     public function index()
@@ -258,7 +261,7 @@ class CartController extends Controller
             'receipt.mimes' => 'El formato debe ser JPG, PNG o JPEG',
             'receipt.max' => 'El tamaño máximo permitido es 2MB',
         ]);
-    
+
         $order = Order::find($order_id);
         if (!$order || $order->user_id != Auth::user()->id) {
             return redirect()->back()->with('error', 'Orden no encontrada o no autorizada');
@@ -276,10 +279,32 @@ class CartController extends Controller
                 $transaction->status = 'en_comprobacion';
                 $transaction->save();
             }
-            
+
             return redirect('/catalogo')->with('success', 'Comprobante de pago subido correctamente');
         }
-        
+
         return redirect()->back()->with('error', 'Error al subir el comprobante de pago');
+    }
+
+    public function generatePDF($orderId)
+    {
+        $order = Order::with(['orderItems.product', 'transaction'])->findOrFail($orderId);
+
+        $barcodeGenerator = new BarcodeGeneratorPNG();
+        $barcode = $barcodeGenerator->getBarcode(
+            $order->reference_code, 
+            $barcodeGenerator::TYPE_CODE_128,
+            3,  
+            60  
+        );
+
+        $barcodeBase64 = 'data:image/png;base64,' . base64_encode($barcode);
+
+        $pdf = Pdf::loadView('pdfs.order-receipt', [
+            'order' => $order,
+            'barcodeBase64' => $barcodeBase64
+        ]);
+
+        return $pdf->download("orden-{$order->id}.pdf");
     }
 }
