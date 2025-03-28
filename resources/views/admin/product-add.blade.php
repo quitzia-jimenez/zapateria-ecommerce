@@ -95,29 +95,6 @@
                     </div>
                     @error('SKU') <span class="text-danger">{{ $message }}</span> @enderror
 
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Cantidad</label>
-                        <input id="quantity" class="form-control" type="text" placeholder="Ingresa la cantidad" name="quantity" tabindex="0" value="{{old('quantity')}}"  aria-required="true" required="">
-                    </div>
-                    @error('quantity') <span class="text-danger">{{ $message }}</span> @enderror
-
-                    <div class="mb-3">
-                        <label for="stock" class="form-label">Stock</label>
-                        <select name="stock_status" id="stock" class="form-select">
-                            <option value="Disponible">En stock</option>
-                            <option value="Agotado">Sin stock</option>
-                        </select>
-                    </div>
-                    @error('stok') <span class="text-danger">{{ $message }}</span> @enderror
-
-                    <div class="mb-3">
-                        <label for="featured" class="form-label">Publico</label>
-                        <select class="form-select" name="featured" class="form-select">
-                            <option value="0">No</option>
-                            <option value="1">Si</option>
-                        </select>
-                    </div>
-                    @error('featured') <span class="text-danger">{{ $message }}</span> @enderror
 
                     <div class="form-group">
                         <label for="sizes">Tallas</label>
@@ -126,13 +103,13 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="sizes[]" id="size_{{ $size->id }}" value="{{ $size->id }}" onchange="toggleQuantityInput({{ $size->id }})">
                                     <label class="form-check-label" for="size_{{ $size->id }}">{{ $size->size }}</label>
-                                    <input type="number" name="quantities[{{ $size->id }}]" id="quantity_{{ $size->id }}" class="form-control" placeholder="Cantidad" style="display: none; margin-top: 10px;">
+                                    <input type="number" name="quantities[{{ $size->id }}]" id="quantity_{{ $size->id }}" class="form-control" placeholder="Cantidad" style="display: none; margin-top: 10px;" min="0">
                                 </div>
                             @endforeach
                         </div>
                     </div>
                     @error('sizes') <span class="text-danger">{{ $message }}</span> @enderror
-
+                    
                     
 
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -197,9 +174,7 @@
         quantityInput.value = ''; // Clear the quantity input when the checkbox is unchecked
     }
 }
-
-
-
 </script>
+
     
 @endpush

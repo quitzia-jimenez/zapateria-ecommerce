@@ -151,13 +151,10 @@ class AdminController extends Controller
             'regular_price' => 'required|numeric',
             'sale_price' => 'required|numeric',
             'SKU' => 'required',
-            'stock_status' => 'required',
-            'featured' => 'required',
-            'quantity' => 'required|numeric',
             'image' => 'required|mimes:jpg,png,jpeg|max:2048',
             'category_id' => 'required',
-            'sizes' => 'required|array', // Validar que las tallas sean un array
-            'quantities' => 'required|array', // Validar que las cantidades sean un array
+            'sizes' => 'required|array|min:1', // Validar que las tallas sean un array no vacío
+            'quantities' => 'required|array|min:1', // Validar que las cantidades sean un array no vacío
         ]);
 
         $product = new Product();
@@ -168,9 +165,6 @@ class AdminController extends Controller
         $product->regular_price = $request->regular_price;
         $product->sale_price = $request->sale_price;
         $product->SKU = $request->SKU;
-        $product->stock_status = $request->stock_status;
-        $product->featured = $request->featured;
-        $product->quantity = $request->quantity;
         $product->category_id = $request->category_id;
 
         $current_timestamp = Carbon::now()->timestamp;
@@ -213,6 +207,9 @@ class AdminController extends Controller
         $quantities = $request->quantities;
         $sizeQuantities = [];
         foreach ($sizes as $sizeId) {
+            if (!isset($quantities[$sizeId])) {
+                return redirect()->back()->withErrors(['quantities' => 'Las cantidades no coinciden con las tallas seleccionadas']);
+            }
             $sizeQuantities[$sizeId] = ['quantity' => $quantities[$sizeId]];
         }
         $product->sizes()->sync($sizeQuantities);
@@ -252,9 +249,6 @@ class AdminController extends Controller
             'regular_price' => 'required|numeric',
             'sale_price' => 'required|numeric',
             'SKU' => 'required',
-            'stock_status' => 'required',
-            'featured' => 'required',
-            'quantity' => 'required|numeric',
             'image' => 'mimes:jpg,png,jpeg|max:2048',
             'category_id' => 'required',
             'sizes' => 'required|array', // Validar que las tallas sean un array
