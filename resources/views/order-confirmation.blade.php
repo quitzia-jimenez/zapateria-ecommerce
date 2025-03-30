@@ -39,7 +39,7 @@
         <span class="checkout-steps__item-number d-flex align-items-center justify-content-center me-3"
           style="background-color: #d769a3; color: white; width: 35px; height: 35px; border-radius: 50%; font-weight: 600;">02</span>
         <span class="checkout-steps__item-title">
-          <span style="color: #434343; font-weight: 600; font-size: 14px;">Envío y pago</span>
+          <span style="color: #434343; font-weight: 600; font-size: 14px;">Confirmar y apartar</span>
           <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Consulta tu Lista de
             Artículos</em>
         </span>
@@ -48,8 +48,8 @@
         <span class="checkout-steps__item-number d-flex align-items-center justify-content-center me-3"
           style="background-color: #d769a3; color: white; width: 35px; height: 35px; border-radius: 50%; font-weight: 600; border: 1px solid #dee2e6;">03</span>
         <span class="checkout-steps__item-title">
-          <span style="color: #6c757d; font-weight: 600; font-size: 14px;">Confirmación</span>
-          <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Revise y Envíe Su Pedido</em>
+          <span style="color: #6c757d; font-weight: 600; font-size: 14px;">Ticket</span>
+          <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Comprobante de pago</em>
         </span>
       </a>
     </div>

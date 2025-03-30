@@ -130,7 +130,11 @@ class AdminController extends Controller
 
     public function products()
     {
+        $products = Product::with('sizes')->get();
         $products = Product::orderBy('id', 'DESC')->paginate(10);
+        foreach ($products as $product) {
+            $product->total_quantity = $product->sizes->sum('pivot.quantity');
+        }
         return view('admin.products', compact('products'));
     }
 
@@ -149,7 +153,8 @@ class AdminController extends Controller
             'short_description' => 'required',
             'description' => 'required',
             'regular_price' => 'required|numeric',
-            'sale_price' => 'required|numeric',
+            //'sale_price' => 'required|numeric',
+            'discount_percentage' => 'nullable|numeric|min:0|max:100', // Validar el porcentaje de descuento
             'SKU' => 'required',
             'image' => 'required|mimes:jpg,png,jpeg|max:2048',
             'category_id' => 'required',
@@ -163,7 +168,10 @@ class AdminController extends Controller
         $product->short_description = $request->short_description;
         $product->description = $request->description;
         $product->regular_price = $request->regular_price;
-        $product->sale_price = $request->sale_price;
+                // Calcular el precio con descuento
+        $discountPercentage = $request->input('discount_percentage', 0);
+        $product->discount_percentage = $discountPercentage;
+        $product->sale_price = $product->regular_price - ($product->regular_price * ($discountPercentage / 100));
         $product->SKU = $request->SKU;
         $product->category_id = $request->category_id;
 
@@ -248,6 +256,8 @@ class AdminController extends Controller
             'description' => 'required',
             'regular_price' => 'required|numeric',
             'sale_price' => 'required|numeric',
+            //'sale_price' => $salePrice,
+            'discount_percentage' => 'nullable|numeric|min:0|max:100', // Validar el porcentaje de descuento
             'SKU' => 'required',
             'image' => 'mimes:jpg,png,jpeg|max:2048',
             'category_id' => 'required',
@@ -261,7 +271,10 @@ class AdminController extends Controller
         $product->short_description = $request->short_description;
         $product->description = $request->description;
         $product->regular_price = $request->regular_price;
-        $product->sale_price = $request->sale_price;
+        // Calcular el precio con descuento
+        $discountPercentage = $request->input('discount_percentage', 0);
+        $product->discount_percentage = $discountPercentage;
+        $product->sale_price = $product->regular_price - ($product->regular_price * ($discountPercentage / 100));
         $product->SKU = $request->SKU;
         $product->stock_status = $request->stock_status;
         $product->featured = $request->featured;

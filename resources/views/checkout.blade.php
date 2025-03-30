@@ -25,7 +25,7 @@
         <span class="checkout-steps__item-number d-flex align-items-center justify-content-center me-3"
           style="background-color: #d769a3; color: white; width: 35px; height: 35px; border-radius: 50%; font-weight: 600;">02</span>
         <span class="checkout-steps__item-title">
-          <span style="color: #434343; font-weight: 600; font-size: 14px;">Envío y Pago</span>
+          <span style="color: #434343; font-weight: 600; font-size: 14px;">Confirmar y apartar</span>
           <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Consulta tu Lista de
             Artículos</em>
         </span>
@@ -34,8 +34,8 @@
         <span class="checkout-steps__item-number d-flex align-items-center justify-content-center me-3"
           style="background-color: #f8f9fa; color: #6c757d; width: 35px; height: 35px; border-radius: 50%; font-weight: 600; border: 1px solid #dee2e6;">03</span>
         <span class="checkout-steps__item-title">
-          <span style="color: #6c757d; font-weight: 600; font-size: 14px;">Confirmación</span>
-          <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Revise y Envíe Su Pedido</em>
+          <span style="color: #6c757d; font-weight: 600; font-size: 14px;">Ticket</span>
+          <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Comprobante de pago</em>
         </span>
       </a>
     </div>
@@ -51,32 +51,9 @@
                 <div class="col-12">
                   <h4 class="mb-4"
                     style="color: #434343; font-weight: 600; font-family: 'Poppins', sans-serif; border-bottom: 2px solid #d769a3; padding-bottom: 10px;">
-                    DETALLES DE ENVÍO</h4>
+                    DETALLES DE PEDIDO</h4>
                 </div>
               </div>
-
-              @if($address)
-          <div class="row">
-          <div class="col-md-12">
-            <div class="my-account_address-list bg-white p-4"
-            style="border-radius: 8px; border-left: 4px solid #d769a3;">
-            <div class="my-account_address-list-item">
-              <div class="my-account_address-item_detail">
-              <p class="mb-1" style="font-weight: 600; font-size: 16px; color: #434343;">{{$address->name}}
-              </p>
-              <p class="mb-1" style="color: #6c757d;">{{$address->address}}</p>
-              <p class="mb-1" style="color: #6c757d;">{{$address->landmark}}</p>
-              <p class="mb-1" style="color: #6c757d;">{{$address->city}}, {{$address->state}},
-                {{$address->country}}</p>
-              <p class="mb-3" style="color: #6c757d;">{{$address->postcode}}</p>
-              <p class="mb-0" style="color: #d769a3; font-weight: 500;"><i
-                class="fas fa-phone-alt me-2"></i>{{$address->phone}}</p>
-              </div>
-            </div>
-            </div>
-          </div>
-          </div>
-
         @else
         <div class="row mt-3">
         <div class="col-md-6">
@@ -116,132 +93,101 @@
           <input type="text" class="form-control" name="city" required="" value="{{old('city')}}"
             style="border-radius: 8px; border: 1px solid #ced4da;">
           <label for="city" style="color: #6c757d;">Ciudad *</label>
-          @error('city') <span class="text-danger">{{$message}}</span> @enderror
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-floating my-3">
-          <input type="text" class="form-control" name="address" required="" value="{{old('address')}}"
-            style="border-radius: 8px; border: 1px solid #ced4da;">
-          <label for="address" style="color: #6c757d;">Número de Casa, Edificio *</label>
-          @error('address') <span class="text-danger">{{$message}}</span> @enderror
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-floating my-3">
-          <input type="text" class="form-control" name="locality" required="" value="{{old('locality')}}"
-            style="border-radius: 8px; border: 1px solid #ced4da;">
-          <label for="locality" style="color: #6c757d;">Calle, Área, Colonia *</label>
-          @error('locality') <span class="text-danger">{{$message}}</span> @enderror
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="form-floating my-3">
-          <input type="text" class="form-control" name="landmark" required="" value="{{old('landmark')}}"
-            style="border-radius: 8px; border: 1px solid #ced4da;">
-          <label for="landmark" style="color: #6c757d;">Punto de Referencia *</label>
-          @error('landmark') <span class="text-danger">{{$message}}</span> @enderror
-          </div>
-        </div>
-        </div>
-      @endif
-            </div>
-          </div>
-        </div>
+          
 
-        <!-- Order Summary Section - Right Column -->
-        <div class="checkout__totals-wrapper col-lg-5">
-          <div class="sticky-content">
-            <div class="checkout__totals card border-0 shadow-sm rounded-3 mb-4">
-              <div class="card-body p-4">
-                <h3 class="mb-4"
-                  style="color: #434343; font-weight: 600; font-family: 'Poppins', sans-serif; border-bottom: 2px solid #d769a3; padding-bottom: 10px;">
-                  Tu Pedido</h3>
+              <!-- Order Summary Section - Right Column -->
+              <div class="checkout__totals-wrapper col-lg-5">
+                <div class="sticky-content">
+                  <div class="checkout__totals card border-0 shadow-sm rounded-3 mb-4">
+                    <div class="card-body p-4">
+                      <h3 class="mb-4"
+                        style="color: #434343; font-weight: 600; font-family: 'Poppins', sans-serif; border-bottom: 2px solid #d769a3; padding-bottom: 10px;">
+                        Tu Pedido</h3>
 
-                <table class="checkout-cart-items table">
-                  <thead>
-                    <tr style="border-bottom: 1px solid #dee2e6;">
-                      <th style="color: #6c757d; font-weight: 600; font-size: 14px;">PRODUCTO</th>
-                      <th align="right" style="color: #6c757d; font-weight: 600; font-size: 14px;">SUBTOTAL</th>
-                    </tr>
-                  </thead>
+                      <table class="checkout-cart-items table">
+                        <thead>
+                          <tr style="border-bottom: 1px solid #dee2e6;">
+                            <th style="color: #6c757d; font-weight: 600; font-size: 14px;">PRODUCTO</th>
+                            <th align="right" style="color: #6c757d; font-weight: 600; font-size: 14px;">SUBTOTAL</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach(Cart::instance('cart')->content() as $item)
+                  <tr style="border-bottom: 1px solid #f5f5f5;">
+                    <td style="padding: 12px 4px; color: #434343;">
+                    {{$item->name}} x {{$item->qty}}
+                    </td>
+                    <td align="right" style="padding: 12px 4px; font-weight: 600; color: #434343;">
+                    ${{$item->subtotal()}}
+                    </td>
+                  </tr>
+                @endforeach
+                        </tbody>
+                      </table>
+
+                      @if(Session::has('discounts'))
+                <table class="checkout-totals table mt-3">
                   <tbody>
-                    @foreach(Cart::instance('cart')->content() as $item)
-            <tr style="border-bottom: 1px solid #f5f5f5;">
-              <td style="padding: 12px 4px; color: #434343;">
-              {{$item->name}} x {{$item->qty}}
-              </td>
-              <td align="right" style="padding: 12px 4px; font-weight: 600; color: #434343;">
-              ${{$item->subtotal()}}
-              </td>
-            </tr>
-          @endforeach
+                  <tr>
+                    <th style="border-top: none; padding: 8px 4px; color: #6c757d;">Subtotal</th>
+                    <td style="border-top: none; padding: 8px 4px; text-align: right; color: #434343;">
+                    ${{Cart::instance('cart')->subtotal()}}</td>
+                  </tr>
+                  <tr>
+                    <th style="padding: 8px 4px; color: #6c757d;">Descuento {{Session::get('coupon')['code']}} </th>
+                    <td style="padding: 8px 4px; text-align: right; color: #d769a3;">
+                    -${{Session::get('discounts')['discount']}}</td>
+                  </tr>
+                  <tr>
+                    <th style="padding: 8px 4px; color: #6c757d;">Subtotal después del descuento </th>
+                    <td style="padding: 8px 4px; text-align: right; color: #434343;">
+                    ${{Session::get('discounts')['subtotal']}}</td>
+                  </tr>
+                  <tr>
+                    <th style="padding: 8px 4px; color: #6c757d;">Envío</th>
+                    <td style="padding: 8px 4px; text-align: right; color: #28a745;">
+                    Gratis
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="padding: 8px 4px; color: #6c757d;">I.V.A.</th>
+                    <td style="padding: 8px 4px; text-align: right; color: #434343;">
+                    ${{Session::get('discounts')['tax']}}</td>
+                  </tr>
+                  <tr style="border-top: 2px solid #dee2e6;">
+                    <th style="padding: 12px 4px; color: #434343; font-weight: 700;">Total</th>
+                    <td
+                    style="padding: 12px 4px; text-align: right; font-weight: 700; font-size: 18px; color: #d769a3;">
+                    ${{Session::get('discounts')['total']}}</td>
+                  </tr>
                   </tbody>
                 </table>
-
-                @if(Session::has('discounts'))
-          <table class="checkout-totals table mt-3">
-            <tbody>
-            <tr>
-              <th style="border-top: none; padding: 8px 4px; color: #6c757d;">Subtotal</th>
-              <td style="border-top: none; padding: 8px 4px; text-align: right; color: #434343;">
-              ${{Cart::instance('cart')->subtotal()}}</td>
-            </tr>
-            <tr>
-              <th style="padding: 8px 4px; color: #6c757d;">Descuento {{Session::get('coupon')['code']}} </th>
-              <td style="padding: 8px 4px; text-align: right; color: #d769a3;">
-              -${{Session::get('discounts')['discount']}}</td>
-            </tr>
-            <tr>
-              <th style="padding: 8px 4px; color: #6c757d;">Subtotal después del descuento </th>
-              <td style="padding: 8px 4px; text-align: right; color: #434343;">
-              ${{Session::get('discounts')['subtotal']}}</td>
-            </tr>
-            <tr>
-              <th style="padding: 8px 4px; color: #6c757d;">Envío</th>
-              <td style="padding: 8px 4px; text-align: right; color: #28a745;">
-              Gratis
-              </td>
-            </tr>
-            <tr>
-              <th style="padding: 8px 4px; color: #6c757d;">I.V.A.</th>
-              <td style="padding: 8px 4px; text-align: right; color: #434343;">
-              ${{Session::get('discounts')['tax']}}</td>
-            </tr>
-            <tr style="border-top: 2px solid #dee2e6;">
-              <th style="padding: 12px 4px; color: #434343; font-weight: 700;">Total</th>
-              <td
-              style="padding: 12px 4px; text-align: right; font-weight: 700; font-size: 18px; color: #d769a3;">
-              ${{Session::get('discounts')['total']}}</td>
-            </tr>
-            </tbody>
-          </table>
-        @else
-      <table class="checkout-totals table mt-3">
-        <tbody>
-        <tr>
-          <th style="border-top: none; padding: 8px 4px; color: #6c757d;">SUBTOTAL</th>
-          <td style="border-top: none; padding: 8px 4px; text-align: right; color: #434343;">
-          ${{Cart::instance('cart')->subtotal()}}</td>
-        </tr>
-        <tr>
-          <th style="padding: 8px 4px; color: #6c757d;">ENVÍO</th>
-          <td style="padding: 8px 4px; text-align: right; color: #28a745;">Envío gratis</td>
-        </tr>
-        <tr>
-          <th style="padding: 8px 4px; color: #6c757d;">I.V.A.</th>
-          <td style="padding: 8px 4px; text-align: right; color: #434343;">
-          ${{Cart::instance('cart')->tax()}}</td>
-        </tr>
-        <tr style="border-top: 2px solid #dee2e6;">
-          <th style="padding: 12px 4px; color: #434343; font-weight: 700;">TOTAL</th>
-          <td
-          style="padding: 12px 4px; text-align: right; font-weight: 700; font-size: 18px; color: #d769a3;">
-          ${{Cart::instance('cart')->total()}}</td>
-        </tr>
-        </tbody>
-      </table>
-    @endif
+              @else
+            <table class="checkout-totals table mt-3">
+              <tbody>
+              <tr>
+                <th style="border-top: none; padding: 8px 4px; color: #6c757d;">SUBTOTAL</th>
+                <td style="border-top: none; padding: 8px 4px; text-align: right; color: #434343;">
+                ${{Cart::instance('cart')->subtotal()}}</td>
+              </tr>
+              <tr>
+                <th style="padding: 8px 4px; color: #6c757d;">ENVÍO</th>
+                <td style="padding: 8px 4px; text-align: right; color: #28a745;">Envío gratis</td>
+              </tr>
+              <tr>
+                <th style="padding: 8px 4px; color: #6c757d;">I.V.A.</th>
+                <td style="padding: 8px 4px; text-align: right; color: #434343;">
+                ${{Cart::instance('cart')->tax()}}</td>
+              </tr>
+              <tr style="border-top: 2px solid #dee2e6;">
+                <th style="padding: 12px 4px; color: #434343; font-weight: 700;">TOTAL</th>
+                <td
+                style="padding: 12px 4px; text-align: right; font-weight: 700; font-size: 18px; color: #d769a3;">
+                ${{Cart::instance('cart')->total()}}</td>
+              </tr>
+              </tbody>
+            </table>
+          @endif
               </div>
             </div>
 
@@ -289,7 +235,7 @@
 
             <button class="btn btn-primary btn-checkout w-100 py-3"
               style="background-color: #d769a3; border: none; border-radius: 8px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 6px rgba(215, 105, 164, 0.3);">REALIZAR
-              PEDIDO</button>
+              PEDIR</button>
           </div>
         </div>
       </div>

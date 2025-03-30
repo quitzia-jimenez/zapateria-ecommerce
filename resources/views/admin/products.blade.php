@@ -34,7 +34,10 @@
                                             <h6 class="fw-semibold mb-0">Precio</h6>
                                         </th>
                                         <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">C/Descuento</h6>
+                                            <h6 class="fw-semibold mb-0">Descuento (%)</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Precio con Descuento</h6>
                                         </th>
 
                                         <th class="border-bottom-0">
@@ -43,14 +46,6 @@
 
                                         <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0">Categoria</h6>
-                                        </th>
-                                        
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">Caracteristica</h6>
-                                        </th>
-
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">Stock</h6>
                                         </th>
 
                                         <th class="border-bottom-0">
@@ -89,6 +84,9 @@
                                                 <h6 class="fw-semibold mb-0 fs-4">{{$product->regular_price}}</h6>
                                             </td>
                                             <td class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0 fs-4">{{$product->discount_percentage}}%</h6>
+                                            </td>
+                                            <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0 fs-4">{{$product->sale_price}}</h6>
                                             </td>
                                             <td class="border-bottom-0">
@@ -97,14 +95,9 @@
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0 fs-4">{{$product->category->name}}</h6>
                                             </td>
+                                            
                                             <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0 fs-4">{{$product->featured == 0 ? "No":"Si"}}</h6>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0 fs-4">{{$product->stock_status}}</h6>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0 fs-4">{{$product->quantity}}</h6>
+                                                <h6 class="fw-semibold mb-0 fs-4">{{ $product->total_quantity }}</h6>
                                             </td>
                                             <td class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0 fs-4">

@@ -83,11 +83,24 @@
                     </div>
                     @error('regular_price') <span class="text-danger">{{ $message }}</span> @enderror
 
+                   {{-- Campo para porcentaje de descuento --}}
                     <div class="mb-3">
-                        <label for="sale_price" class="form-label">Precio de descuento</label>
-                        <input id="sale_price" class="form-control" type="text" placeholder="Ingresa el precio de descuento" name="sale_price" tabindex="0" value="{{old('sale_price')}}"  aria-required="true" required="">
+                        <label for="discount_percentage" class="form-label">Porcentaje de descuento (%)</label>
+                        <input id="discount_percentage" class="form-control" type="number" name="discount_percentage" value="{{ old('discount_percentage', $product->discount_percentage ?? 0) }}" min="0" max="100">
                     </div>
-                    @error('sale_price') <span class="text-danger">{{ $message }}</span> @enderror
+                    @error('discount_percentage') <span class="text-danger">{{ $message }}</span> @enderror
+
+                    {{-- Campo para precio con descuento (solo lectura) --}}
+                    <div class="mb-3">
+                        <label for="sale_price" class="form-label">Precio con descuento</label>
+                        <input id="sale_price" class="form-control" type="text" value="{{ old('sale_price', $product->sale_price ?? '') }}" readonly>
+                    </div>
+                   
+                    
+                    <div class="mb-3">
+                        <label for="discounted_price" class="form-label">Precio con descuento</label>
+                        <input id="discounted_price" class="form-control" type="text" placeholder="El precio con descuento se calculará automáticamente" readonly>
+                    </div>
 
                     <div class="mb-3">
                         <label for="SKU" class="form-label">SKU</label>
@@ -173,7 +186,28 @@
         quantityInput.style.display = 'none';
         quantityInput.value = ''; // Clear the quantity input when the checkbox is unchecked
     }
+
 }
+document.addEventListener('DOMContentLoaded', function () {
+        const regularPriceInput = document.getElementById('regular_price');
+        const discountPercentageInput = document.getElementById('discount_percentage');
+        const discountedPriceInput = document.getElementById('discounted_price');
+
+        function calculateDiscountedPrice() {
+            const regularPrice = parseFloat(regularPriceInput.value) || 0;
+            const discountPercentage = parseFloat(discountPercentageInput.value) || 0;
+
+            if (regularPrice > 0 && discountPercentage >= 0 && discountPercentage <= 100) {
+                const discountedPrice = regularPrice - (regularPrice * (discountPercentage / 100));
+                discountedPriceInput.value = discountedPrice.toFixed(2); // Mostrar con 2 decimales
+            } else {
+                discountedPriceInput.value = '';
+            }
+        }
+
+        regularPriceInput.addEventListener('input', calculateDiscountedPrice);
+        discountPercentageInput.addEventListener('input', calculateDiscountedPrice);
+    });
 </script>
 
     

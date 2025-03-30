@@ -37,7 +37,7 @@
         <span class="checkout-steps__item-number d-flex align-items-center justify-content-center me-3"
           style="background-color: #f8f9fa; color: #6c757d; width: 35px; height: 35px; border-radius: 50%; font-weight: 600;">02</span>
         <span class="checkout-steps__item-title">
-          <span style="color: #434343; font-weight: 600; font-size: 14px;">Envío y Pago</span>
+          <span style="color: #434343; font-weight: 600; font-size: 14px;">Confirmar y apartar</span>
           <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Consulta tu Lista de
             Artículos</em>
         </span>
@@ -46,8 +46,8 @@
         <span class="checkout-steps__item-number d-flex align-items-center justify-content-center me-3"
           style="background-color: #f8f9fa; color: #6c757d; width: 35px; height: 35px; border-radius: 50%; font-weight: 600; border: 1px solid #dee2e6;">03</span>
         <span class="checkout-steps__item-title">
-          <span style="color: #6c757d; font-weight: 600; font-size: 14px;">Confirmación</span>
-          <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Revise y Envíe Su Pedido</em>
+          <span style="color: #6c757d; font-weight: 600; font-size: 14px;">Ticket</span>
+          <em style="display: block; font-size: 12px; color: #6c757d; font-style: normal;">Comprobante de pago</em>
         </span>
       </a>
     </div>
@@ -97,8 +97,8 @@
         <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: #434343;">{{$item->name}}
         </h4>
         <ul class="shopping-cart__product-item__options"
-        style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #7a7a7a;">
-        <li>Size</li>
+            style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #7a7a7a;">
+            <li>Talla: {{ $item->options->size ?? 'N/A' }}</li>
         </ul>
         </div>
         </td>
@@ -109,8 +109,8 @@
         <td style="padding: 1rem; vertical-align: middle; border-bottom: 1px solid #eee;">
         <div class="qty-control position-relative"
         style="display: flex; align-items: center; max-width: 120px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
-        <input type="number" name="quantity" value="{{$item->qty}}" min="1"
-        class="qty-control__number text-center"
+        <input type="text" name="quantity" value="{{$item->qty}}" min="1"
+        class=" text-center"disabled
         style="width: 40px; border: none; text-align: center; font-weight: 600; color: #434343;">
 
         <form action="{{route('cart.qty.decrese', ['rowId' => $item->rowId])}}" method="POST">
