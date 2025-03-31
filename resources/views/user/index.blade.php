@@ -17,44 +17,6 @@
                         <h2>Inicio</h2>
                         <p>Bienvenida, {{Auth::user()->name}}. Aquí puedes ver un resumen de tu actividad.</p>
                     </div>
-                    <div class="inicio-stats-perfil-cliente">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card-inicio-stats">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-shopping-bag"></i>
-                                    </div>
-                                    <div class="stat-info">
-                                        <h3>1</h3>
-                                        <p>Pedidos Totales</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card-inicio-stats">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-heart"></i>
-                                    </div>
-                                    <div class="stat-info">
-                                        <h3>2</h3>
-                                        <p>Lista de Deseos</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card-inicio-stats">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-heart"></i>
-                                    </div>
-                                    <div class="stat-info">
-                                        <h3>4</h3>
-                                        <p>Carrito</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
                     <div class="recent-orders">
                         <h4>Pedidos Recientes</h4>
                         <div class="table-responsive">

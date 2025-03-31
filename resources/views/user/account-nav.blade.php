@@ -2,7 +2,6 @@
 
     <div class="slidebar-perfil-cliente">
         <div class="avatar-perfil-cliente">
-            <img src="{{ asset('recursos/user/img/user-1.jpg')}}" alt="Foto de perfil">
             <h4>{{Auth::user()->name}}</h4>
         </div>
         <ul class="menu-perfil-cliente">

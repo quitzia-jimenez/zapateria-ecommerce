@@ -268,8 +268,11 @@
                       style="border-color: var(--border-color); border-radius: 8px 0 0 8px;">
                 <i class="fa fa-minus"></i>
               </button>
-              <input type="number" name="quantity" value="1" min="1" class="form-control text-center"
-                    style="border-color: var(--border-color); border-left: 0; border-right: 0;">
+              
+              <input type="text" name="quantity" value="1" min="1"
+              class=" text-center"disabled
+              style="width: 40px; border: none; text-align: center; font-weight: 600; color: #434343;">      
+
               <button type="button" class="btn btn-outline-secondary qty-control__increase"
                       style="border-color: var(--border-color); border-radius: 0 8px 8px 0;">
                 <i class="fa fa-plus"></i>

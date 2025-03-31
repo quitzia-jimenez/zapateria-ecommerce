@@ -34,7 +34,7 @@ Route::delete('/cart/clear', [CartController::class, 'empty_cart'])->name('cart.
 
 //rutas para el pago
 Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
-Route::post('/place-an-order', [CartController::class, 'place_an_order'])->name('cart.place.an.order');
+Route::post('/cart/place-order', [CartController::class, 'place_an_order'])->name('cart.place_order');
 Route::get('/order-confirmation', [CartController::class, 'order_confirmation'])->name('cart.order.confirmation');
 
 Route::post('/cart/apply-coupon', [CartController::class, 'aply_coupon_code'])->name('cart.coupon.apply');

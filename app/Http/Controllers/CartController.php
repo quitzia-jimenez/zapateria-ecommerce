@@ -15,6 +15,8 @@ use Surfsidemedia\Shoppingcart\Facades\Cart;
 
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -218,7 +220,6 @@ class CartController extends Controller
         return redirect()->route('cart.order.confirmation', compact('order'));
 
     }
-
     public function setAmountforCheckout()
     {
         if (!Cart::instance('cart')->content()->count() > 0) {
