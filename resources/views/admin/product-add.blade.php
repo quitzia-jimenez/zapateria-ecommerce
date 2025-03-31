@@ -91,9 +91,9 @@
                     @error('discount_percentage') <span class="text-danger">{{ $message }}</span> @enderror
 
                     {{-- Campo para precio con descuento (solo lectura) --}}
-                    <div class="mb-3">
-                        <label for="sale_price" class="form-label">Precio con descuento</label>
-                        <input id="sale_price" class="form-control" type="text" value="{{ old('sale_price', $product->sale_price ?? '') }}" readonly>
+                    <div class="mb-3" hidden>
+                        <label for="sale_price" class="form-label" hidden>Precio con descuento</label>
+                        <input id="sale_price" class="form-control" type="text" value="{{ old('sale_price', $product->sale_price ?? '') }}" readonly hidden>
                     </div>
                    
                     

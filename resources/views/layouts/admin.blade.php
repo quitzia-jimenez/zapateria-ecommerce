@@ -59,7 +59,7 @@
                                 <span>
                                 <i class="ti ti-article"></i>
                                 </span>
-                                <span class="hide-menu">Producos</span>
+                                <span class="hide-menu">Productos</span>
                             </a>
                             </li>
                             <li class="sidebar-item">

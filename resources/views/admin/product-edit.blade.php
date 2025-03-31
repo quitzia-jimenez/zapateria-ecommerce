@@ -98,42 +98,21 @@
                         <input id="regular_price" class="form-control" type="text" placeholder="Ingresa el precio regular" name="regular_price" tabindex="0" value="{{$product->regular_price}}"  aria-required="true" required="">
                     </div>
                     @error('regular_price') <span class="text-danger">{{ $message }}</span> @enderror
-
                     <div class="mb-3">
-                        <label for="sale_price" class="form-label">Precio de descuento</label>
-                        <input id="sale_price" class="form-control" type="text" placeholder="Ingresa el precio de descuento" name="sale_price" tabindex="0" value="{{$product->sale_price}}"  aria-required="true" required="">
+                        <label for="discount_percentage" class="form-label">Porcentaje de descuento</label>
+                        <input id="discount_percentage" class="form-control" type="number" placeholder="Ingresa el porcentaje de descuento" name="discount_percentage" tabindex="0" value="{{ $product->discount_percentage ?? '' }}" min="0" max="100" aria-required="true">
+                        <div class="text-tiny">Ingresa un valor entre 0 y 100</div>
                     </div>
-                    @error('sale_price') <span class="text-danger">{{ $message }}</span> @enderror
+                    @error('discount_percentage') <span class="text-danger">{{ $message }}</span> @enderror
 
+                    
                     <div class="mb-3">
                         <label for="SKU" class="form-label">SKU</label>
                         <input id="SKU" class="form-control" type="text" placeholder="Ingresa el SKU" name="SKU" tabindex="0" value="{{$product->SKU}}"  aria-required="true" required="">
                     </div>
                     @error('SKU') <span class="text-danger">{{ $message }}</span> @enderror
 
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Cantidad</label>
-                        <input id="quantity" class="form-control" type="text" placeholder="Ingresa la cantidad" name="quantity" tabindex="0" value="{{$product->quantity}}"  aria-required="true" required="">
-                    </div>
-                    @error('quantity') <span class="text-danger">{{ $message }}</span> @enderror
-
-                    <div class="mb-3">
-                        <label for="stock" class="form-label">Stock</label>
-                        <select name="stock_status" id="stock" class="form-select">
-                            <option value="Disponible" {{$product->stock_status == "Disponible" ? "selected":""}}>En stock</option>
-                            <option value="Agotado" {{$product->stock_status == "Agotado" ? "selected":""}}>Sin stock</option>
-                        </select>
-                    </div>
-                    @error('stok') <span class="text-danger">{{ $message }}</span> @enderror
-
-                    <div class="mb-3">
-                        <label for="featured" class="form-label">Publico</label>
-                        <select class="form-select" name="featured" class="form-select">
-                            <option value="0" {{$product->featured == "0" ? "selected":""}}>No</option>
-                            <option value="1" {{$product->featured == "1" ? "selected":""}}>Si</option>
-                        </select>
-                    </div>
-                    @error('featured') <span class="text-danger">{{ $message }}</span> @enderror
+                    
                     
                     <div class="form-group">
                         <label for="sizes">Tallas</label>

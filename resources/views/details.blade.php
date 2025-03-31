@@ -262,21 +262,21 @@
         @else
         <form name="addtocart-form" method="POST" action="{{route('cart.add')}}" class="mb-4">
           @csrf
-          <div class="d-flex align-items-center mb-3">
-            <div class="input-group me-3" style="width: 130px;">
-              <button type="button" class="btn btn-outline-secondary qty-control__reduce"
-                      style="border-color: var(--border-color); border-radius: 8px 0 0 8px;">
-                <i class="fa fa-minus"></i>
-              </button>
-              
-              <input type="text" name="quantity" value="1" min="1"
-              class=" text-center"disabled
-              style="width: 40px; border: none; text-align: center; font-weight: 600; color: #434343;">      
-
-              <button type="button" class="btn btn-outline-secondary qty-control__increase"
-                      style="border-color: var(--border-color); border-radius: 0 8px 8px 0;">
-                <i class="fa fa-plus"></i>
-              </button>
+            <div class="d-flex align-items-center mb-3">
+              <div class="input-group me-3" style="width: 100px;">
+                <button type="button" class="btn btn-outline-secondary qty-control__reduce"
+                        style="border-color: var(--border-color); border-radius: 8px 0 0 8px; padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+                    <i class="fa fa-minus"></i>
+                </button>
+            
+                <input type="text" name="quantity" value="1" min="1"
+                      class="text-center"
+                      style="width: 40px; border: none; text-align: center; font-weight: 600; color: #434343; font-size: 0.9rem;">
+            
+                <button type="button" class="btn btn-outline-secondary qty-control__increase"
+                        style="border-color: var(--border-color); border-radius: 0 8px 8px 0; padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+                    <i class="fa fa-plus"></i>
+                </button>
             </div>
             <input type="hidden" name="id" value="{{$product->id}}">
             <input type="hidden" name="name" value="{{$product->name}}">

@@ -251,12 +251,10 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:products,slug,'. $request->id,
+            'slug' => 'required|unique:products,slug,' . $request->id,
             'short_description' => 'required',
             'description' => 'required',
             'regular_price' => 'required|numeric',
-            'sale_price' => 'required|numeric',
-            //'sale_price' => $salePrice,
             'discount_percentage' => 'nullable|numeric|min:0|max:100', // Validar el porcentaje de descuento
             'SKU' => 'required',
             'image' => 'mimes:jpg,png,jpeg|max:2048',
@@ -271,75 +269,63 @@ class AdminController extends Controller
         $product->short_description = $request->short_description;
         $product->description = $request->description;
         $product->regular_price = $request->regular_price;
+
         // Calcular el precio con descuento
         $discountPercentage = $request->input('discount_percentage', 0);
         $product->discount_percentage = $discountPercentage;
         $product->sale_price = $product->regular_price - ($product->regular_price * ($discountPercentage / 100));
+
         $product->SKU = $request->SKU;
-        $product->stock_status = $request->stock_status;
-        $product->featured = $request->featured;
-        $product->quantity = $request->quantity;
         $product->category_id = $request->category_id;
 
         $current_timestamp = Carbon::now()->timestamp;
 
-        if($request->hasFile('image'))
-        {
-            if(File::exists(public_path('uploads/products').'/'.$product->image))
-            {
-                File::delete(public_path('uploads/products').'/'.$product->image);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path('uploads/products') . '/' . $product->image)) {
+                File::delete(public_path('uploads/products') . '/' . $product->image);
             }
-            if(File::exists(public_path('uploads/products/thumbnails').'/'.$product->image))
-            {
-                File::delete(public_path('uploads/products/thumbnails').'/'.$product->image);
+            if (File::exists(public_path('uploads/products/thumbnails') . '/' . $product->image)) {
+                File::delete(public_path('uploads/products/thumbnails') . '/' . $product->image);
             }
             $image = $request->file('image');
-            $imageName = $current_timestamp.'.'.$image->extension();
+            $imageName = $current_timestamp . '.' . $image->extension();
             $this->GenerateProductThumbnailImage($image, $imageName);
             $product->image = $imageName;
         }
 
-        $gallery_arr = array();
+        $gallery_arr = [];
         $gallery_images = "";
         $counter = 1;
 
-        if($request->hasFile('images'))
-        {
-            foreach(explode(',',$product->images) as $ofile)
-            {
-                if(File::exists(public_path('uploads/products').'/'.$ofile))
-                {
-                    File::delete(public_path('uploads/products').'/'.$ofile);
+        if ($request->hasFile('images')) {
+            foreach (explode(',', $product->images) as $ofile) {
+                if (File::exists(public_path('uploads/products') . '/' . $ofile)) {
+                    File::delete(public_path('uploads/products') . '/' . $ofile);
                 }
-                if(File::exists(public_path('uploads/products/thumbnails').'/'.$ofile))
-                {
-                    File::delete(public_path('uploads/products/thumbnails').'/'.$ofile);
+                if (File::exists(public_path('uploads/products/thumbnails') . '/' . $ofile)) {
+                    File::delete(public_path('uploads/products/thumbnails') . '/' . $ofile);
                 }
             }
 
-
-            $allowedfileExtion = ['jpg','png','jpeg'];
+            $allowedfileExtion = ['jpg', 'png', 'jpeg'];
             $files = $request->file('images');
-            foreach($files as $file)
-            {
+            foreach ($files as $file) {
                 $gextension = $file->getClientOriginalExtension();
-                $gcheck = in_array($gextension,$allowedfileExtion);
-                if($gcheck)
-                {
-                    $gfileName = $current_timestamp.'_'.$counter .'.'. $gextension;
+                $gcheck = in_array($gextension, $allowedfileExtion);
+                if ($gcheck) {
+                    $gfileName = $current_timestamp . '_' . $counter . '.' . $gextension;
                     $this->GenerateProductThumbnailImage($file, $gfileName);
                     array_push($gallery_arr, $gfileName);
                     $counter = $counter + 1;
-
                 }
             }
-            $gallery_images = implode(',',$gallery_arr);
+            $gallery_images = implode(',', $gallery_arr);
             $product->images = $gallery_images;
-
         }
-        
+
         $product->save();
-       // Actualizar las tallas seleccionadas con sus cantidades
+
+        // Actualizar las tallas seleccionadas con sus cantidades
         $sizes = $request->sizes;
         $quantities = $request->quantities;
         $sizeQuantities = [];
@@ -348,8 +334,9 @@ class AdminController extends Controller
         }
         $product->sizes()->sync($sizeQuantities);
 
-        return redirect()->route('admin.products')->with('status', 'El producto ha sido editado con exito!');
+        return redirect()->route('admin.products')->with('status', 'El producto ha sido editado con éxito!');
     }
+    
     
     public function product_delete($id)
     {
