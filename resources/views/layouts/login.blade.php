@@ -9,6 +9,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{asset('recursos/user/css/logins_styles.css')}}">
+    @yield('css')
 </head>
 
 <body>
@@ -16,6 +17,7 @@
     @yield('content')
 
     <script src="{{asset('recursos/user/js/appPrincipal.js')}}"></script>
+    @yield('js')
 </body>
 
 </html>

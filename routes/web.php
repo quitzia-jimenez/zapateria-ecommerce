@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\RecuperacionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -11,6 +12,11 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\AuthAdmin;
 
 Auth::routes();
+
+Route::get('/recuperar-contrasena', [RecuperacionController::class, 'mostrarFormulario'])->name('recuperacion.solicitud');
+Route::post('/recuperar-contrasena/enviar', [RecuperacionController::class, 'enviarCorreo'])->name('recuperacion.email');
+Route::get('/recuperar-contrasena/{token}', [RecuperacionController::class, 'formularioRestablecimiento'])->name('recuperacion.reset');
+Route::post('/recuperar-contrasena/restablecer', [RecuperacionController::class, 'restablecerContrasena'])->name('recuperacion.update');
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/nosotros', [HomeController::class, 'nosotros'])->name('home.nosotros');
