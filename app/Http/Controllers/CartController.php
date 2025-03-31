@@ -131,31 +131,22 @@ class CartController extends Controller
         $address = Address::where('user_id', $user_id)->where('isdefault', true)->first();
 
         if (!$address) {
-            $request->validate([
-                'name' => 'required|max:100',
-                'phone' => 'required|numeric|digits:10',
-                'postcode' => 'required|numeric|digits:5',
-                'state' => 'required',
-                'city' => 'required',
-                'address' => 'required',
-                'locality' => 'required',
-                'landmark' => 'required',
-
-            ]);
-            $address = new Address();
-            $address->name = $request->name;
-            $address->phone = $request->phone;
-            $address->postcode = $request->postcode;
-            $address->state = $request->state;
-            $address->city = $request->city;
-            $address->address = $request->address;
-            $address->locality = $request->locality;
-            $address->landmark = $request->landmark;
-            $address->country = 'Mexico';
-            $address->user_id = $user_id;
-            $address->isdefault = true;
-            $address->save();
-        }
+                $request->validate([
+                    'name' => ['required', 'regex:/^[a-zA-Z\s]+$/', 'max:100'], // Solo letras y espacios
+                    'phone' => ['required', 'numeric', 'digits:10'], // Solo números y exactamente 10 dígitos
+                ], [
+                    'name.regex' => 'El nombre solo puede contener letras y espacios.',
+                    'phone.numeric' => 'El número de teléfono solo puede contener números.',
+                    'phone.digits' => 'El número de teléfono debe tener exactamente 10 dígitos.',
+                ]);
+            
+                $address = new Address();
+                $address->user_id = $user_id; // Asignar el user_id
+                $address->name = $request->name;
+                $address->phone = $request->phone;
+                $address->isdefault = true;
+                $address->save();
+            }
         $this->setAmountforCheckout();
 
         $order = new Order();
@@ -176,13 +167,6 @@ class CartController extends Controller
         $order->total = number_format(round(floatval($total), 2), 2, '.', '');
         $order->name = $address->name;
         $order->phone = $address->phone;
-        $order->locality = $address->locality;
-        $order->address = $address->address;
-        $order->city = $address->city;
-        $order->state = $address->state;
-        $order->country = $address->country;
-        $order->landmark = $address->landmark;
-        $order->postcode = $address->postcode;
         do {
             $reference_code = strtoupper(substr(md5(uniqid($order->user_id . $order->subtotal . $order->total . $order->created_at, true)), 0, 10));
         } while (Order::where('reference_code', $reference_code)->exists());
@@ -199,11 +183,7 @@ class CartController extends Controller
             $orderItem->save();
         }
 
-        if ($request->mode == "card") {
-
-        } elseif ($request->mode == "paypal") {
-
-        } elseif ($request->mode == "cod") {
+        if ($request->mode == "cod") {
             $transaction = new Transaction();
             $transaction->user_id = $user_id;
             $transaction->order_id = $order->id;
@@ -218,8 +198,8 @@ class CartController extends Controller
         Session::forget('discounts');
         Session::put('order_id', $order->id);
         return redirect()->route('cart.order.confirmation', compact('order'));
-
     }
+
     public function setAmountforCheckout()
     {
         if (!Cart::instance('cart')->content()->count() > 0) {

@@ -51,6 +51,101 @@
                 <div class="col-12">
                   <h4 class="mb-4"
                     style="color: #434343; font-weight: 600; font-family: 'Poppins', sans-serif; border-bottom: 2px solid #d769a3; padding-bottom: 10px;">
+                    DETALLES DE ENVÍO</h4>
+                </div>
+              </div>
+              @if($address)
+                <div class="row">
+                <div class="col-md-12">
+                  <div class="my-account_address-list bg-white p-4"
+                  style="border-radius: 8px; border-left: 4px solid #d769a3;">
+                  <div class="my-account_address-list-item">
+                    <div class="my-account_address-item_detail">
+                    <p class="mb-1" style="font-weight: 600; font-size: 16px; color: #434343;">{{$address->name}}
+                    </p>
+                    <p class="mb-0" style="color: #d769a3; font-weight: 500;"><i
+                      class="fas fa-phone-alt me-2"></i>{{$address->phone}}</p>
+                    </div>
+                  </div>
+
+                  </div>
+                </div>
+                </div>
+
+              @else
+              <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="form-floating my-3">
+                        <input type="text" class="form-control" name="name" required="" value="{{ old('name') }}"
+                            style="border-radius: 8px; border: 1px solid #ced4da;">
+                        <label for="name" style="color: #6c757d;">Nombre Completo *</label>
+                        @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating my-3">
+                        <input type="text" class="form-control" name="phone" required="" value="{{ old('phone') }}"
+                            style="border-radius: 8px; border: 1px solid #ced4da;">
+                        <label for="phone" style="color: #6c757d;">Número de Teléfono *</label>
+                        @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+            </div>
+              
+            @endif
+                  </div>
+                </div>
+                
+            </div>
+          <!-- Order Summary Section - Right Column -->
+        <div class="checkout__totals-wrapper col-lg-5">
+          <div class="sticky-content">
+            
+
+            <div class="checkout__payment-methods card border-0 shadow-sm rounded-3 mb-4">
+              <div class="card-body p-4">
+                <h4 class="mb-4"
+                  style="color: #434343; font-weight: 600; font-family: 'Poppins', sans-serif; border-bottom: 2px solid #d769a3; padding-bottom: 10px;">
+                  Método de Pago</h4>
+
+                
+
+                
+
+                <div class="form-check mb-4 p-3"
+                  style="border: 1px solid #dee2e6; border-radius: 8px; background-color: #f8f9fa;">
+                  <input class="form-check-input form-check-input_fill" type="radio" name="mode" id="mode3" value="cod"
+                    style="margin-top: 0.3em;">
+                  <label class="form-check-label" for="mode3" style="font-weight: 500; color: #434343;">
+                    <i class="fas fa-money-bill-wave me-2" style="color: #28a745;"></i>Pagar a la entrega
+                  </label>
+                </div>
+
+                <div class="policy-text mt-4 p-3"
+                  style="font-size: 13px; color: #6c757d; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #d769a3;">
+                  Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en este sitio web y
+                  para otros fines descritos en nuestra <a href="terms.html" target="_blank"
+                    style="color: #d769a3; text-decoration: none; font-weight: 600;">política de privacidad</a>.
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-checkout w-100 py-3"
+              style="background-color: #d769a3; border: none; border-radius: 8px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 6px rgba(215, 105, 164, 0.3);">REALIZAR
+              PEDIDO</button>
+          </div>
+        </div>
+          
+
+        
+        <!-- Billing Info Section - Left Column -->
+        <div class="billing-info__wrapper col-lg-7 mb-4">
+          <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-4">
+              <div class="row">
+                <div class="col-12">
+                  <h4 class="mb-4"
+                    style="color: #434343; font-weight: 600; font-family: 'Poppins', sans-serif; border-bottom: 2px solid #d769a3; padding-bottom: 10px;">
                     DETALLES DE PEDIDO</h4>
                 </div>
               </div>
@@ -155,44 +250,7 @@
           </div>
         </div>
 
-        <!-- Order Summary Section - Right Column -->
-        <div class="checkout__totals-wrapper col-lg-5">
-          <div class="sticky-content">
-            
-
-            <div class="checkout__payment-methods card border-0 shadow-sm rounded-3 mb-4">
-              <div class="card-body p-4">
-                <h4 class="mb-4"
-                  style="color: #434343; font-weight: 600; font-family: 'Poppins', sans-serif; border-bottom: 2px solid #d769a3; padding-bottom: 10px;">
-                  Método de Pago</h4>
-
-                
-
-                
-
-                <div class="form-check mb-4 p-3"
-                  style="border: 1px solid #dee2e6; border-radius: 8px; background-color: #f8f9fa;">
-                  <input class="form-check-input form-check-input_fill" type="radio" name="mode" id="mode3" value="cod"
-                    style="margin-top: 0.3em;">
-                  <label class="form-check-label" for="mode3" style="font-weight: 500; color: #434343;">
-                    <i class="fas fa-money-bill-wave me-2" style="color: #28a745;"></i>Pagar a la entrega
-                  </label>
-                </div>
-
-                <div class="policy-text mt-4 p-3"
-                  style="font-size: 13px; color: #6c757d; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #d769a3;">
-                  Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en este sitio web y
-                  para otros fines descritos en nuestra <a href="terms.html" target="_blank"
-                    style="color: #d769a3; text-decoration: none; font-weight: 600;">política de privacidad</a>.
-                </div>
-              </div>
-            </div>
-
-            <button class="btn btn-primary btn-checkout w-100 py-3"
-              style="background-color: #d769a3; border: none; border-radius: 8px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 6px rgba(215, 105, 164, 0.3);">REALIZAR
-              PEDIDO</button>
-          </div>
-        </div>
+        
       </div>
     </form>
   </section>
