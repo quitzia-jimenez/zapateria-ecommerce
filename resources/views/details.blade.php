@@ -240,57 +240,59 @@
         <p class="lead" style="font-size: 1rem; line-height: 1.6;">{{$product->short_description}}</p>
         </div>
 
-        <!-- Tallas Disponibles -->
         <div class="mb-4">
-          <label for="sizes" class="form-label">Tallas disponibles:</label>
-          <div id="sizes" class="d-flex flex-wrap">
-            @foreach($sizes as $size)
-              <button type="button" class="btn btn-outline-secondary me-2 mb-2 size-button" 
-                      data-size="{{ $size->size }}" style="border-radius: 8px;">
-                {{ $size->size }}
-              </button>
-            @endforeach
-          </div>
+        <label for="sizes" class="form-label">Tallas disponibles:</label>
+        <div id="sizes" class="d-flex flex-wrap">
+          @foreach($sizes as $size)
+        <button type="button" class="btn btn-outline-secondary me-2 mb-2 size-button"
+        data-size="{{ $size->size }}" data-stock="{{ $size->pivot->quantity }}" style="border-radius: 8px;">
+        {{ $size->size }}
+        </button>
+      @endforeach
+        </div>
+        <small id="stock-info" class="text-muted mt-2" style="display: none;">
+          Stock disponible: <span id="available-stock">0</span>
+        </small>
         </div>
 
         <!-- Add to Cart Form -->
         @if(Cart::instance('cart')->content()->where('id', $product->id)->count() > 0)
-        <a href="{{route('cart.index')}}" class="btn btn-warning mb-4 py-2 px-4 fw-semibold"
-          style="background-color: var(--accent-color); border-color: var(--accent-color); border-radius: 8px;">
-          <i class="fa fa-shopping-cart me-2"></i>Ir al carrito
-        </a>
-        @else
-        <form name="addtocart-form" method="POST" action="{{route('cart.add')}}" class="mb-4">
-          @csrf
-            <div class="d-flex align-items-center mb-3">
-              <div class="input-group me-3" style="width: 100px;">
-                <button type="button" class="btn btn-outline-secondary qty-control__reduce"
-                        style="border-color: var(--border-color); border-radius: 8px 0 0 8px; padding: 0.25rem 0.5rem; font-size: 0.8rem;">
-                    <i class="fa fa-minus"></i>
-                </button>
-            
-                <input type="text" name="quantity" value="1" min="1"
-                      class="text-center"
-                      style="width: 40px; border: none; text-align: center; font-weight: 600; color: #434343; font-size: 0.9rem;">
-            
-                <button type="button" class="btn btn-outline-secondary qty-control__increase"
-                        style="border-color: var(--border-color); border-radius: 0 8px 8px 0; padding: 0.25rem 0.5rem; font-size: 0.8rem;">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </div>
-            <input type="hidden" name="id" value="{{$product->id}}">
-            <input type="hidden" name="name" value="{{$product->name}}">
-            <input type="hidden" name="price"
-                  value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
-            <input type="hidden" name="size" id="selected-size" value=""> <!-- Campo oculto para la talla seleccionada -->
-            <button type="submit" class="btn btn-primary py-2 px-4 fw-semibold add-to-cart-btn"
-                    style="background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 8px;"
-                    disabled>
-              <i class="fa fa-cart-plus me-2"></i>Agregar al carrito
-            </button>
-          </div>
-        </form>
-        @endif
+      <a href="{{route('cart.index')}}" class="btn btn-warning mb-4 py-2 px-4 fw-semibold"
+      style="background-color: var(--accent-color); border-color: var(--accent-color); border-radius: 8px;">
+      <i class="fa fa-shopping-cart me-2"></i>Ir al carrito
+      </a>
+    @else
+    <form name="addtocart-form" method="POST" action="{{route('cart.add')}}" class="mb-4">
+    @csrf
+    <div class="d-flex align-items-center mb-3">
+      <div class="input-group me-3" style="width: 100px;">
+      <button type="button" class="btn btn-outline-secondary qty-control__reduce"
+      style="border-color: var(--border-color); border-radius: 8px 0 0 8px; padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+      <i class="fa fa-minus"></i>
+      </button>
+
+      <input type="text" name="quantity" value="1" min="1" class="text-center"
+      style="width: 40px; border: none; text-align: center; font-weight: 600; color: #434343; font-size: 0.9rem;">
+
+      <button type="button" class="btn btn-outline-secondary qty-control__increase"
+      style="border-color: var(--border-color); border-radius: 0 8px 8px 0; padding: 0.25rem 0.5rem; font-size: 0.8rem;">
+      <i class="fa fa-plus"></i>
+      </button>
+      </div>
+      <input type="hidden" name="id" value="{{$product->id}}">
+      <input type="hidden" name="name" value="{{$product->name}}">
+      <input type="hidden" name="price"
+      value="{{$product->sale_price == '' ? $product->regular_price : $product->sale_price}}">
+      <!-- Campo oculto para la talla seleccionada -->
+      <input type="hidden" name="size" id="selected-size" value="">
+      <button type="submit" class="btn btn-primary py-2 px-4 fw-semibold add-to-cart-btn"
+      style="background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 8px;"
+      disabled>
+      <i class="fa fa-cart-plus me-2"></i>Agregar al carrito
+      </button>
+    </div>
+    </form>
+  @endif
 
         <!-- Wishlist and Share -->
         <div class="d-flex mb-4">
@@ -389,7 +391,7 @@
                 class="rounded-circle" alt="user" width="50" height="50" style="object-fit: cover;">
               </div>
               <div class="ms-3">
-              <h5 class="mb-1 fw-bold">Rodrigo Sosa Romero</h5>
+              <h5 class="mb-1 fw-bold">Quitzia Arely Jimenez Sanchez</h5>
               <div class="text-warning mb-1">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
@@ -494,7 +496,8 @@
       <input type="hidden" name="price"
       value="{{$rproduct->sale_price == '' ? $rproduct->regular_price : $rproduct->sale_price}}">
       <button type="submit" class="btn btn-sm btn-primary"
-      style="background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 8px; font-weight: 500;">Agregar al carrito</button>
+      style="background-color: var(--primary-color); border-color: var(--primary-color); border-radius: 8px; font-weight: 500;">Agregar
+      al carrito</button>
     </form>
   @endif
         </div>
@@ -693,33 +696,91 @@
       });
     });
     document.querySelector('#productTabs .nav-link.active').style.borderBottom = '2px solid var(--primary-color)';
-    });
 
-    document.addEventListener('DOMContentLoaded', function () {
+    // Size button functionality
     const sizeButtons = document.querySelectorAll('.size-button');
     const selectedSizeInput = document.getElementById('selected-size');
     const addToCartButton = document.querySelector('.add-to-cart-btn');
+    const stockInfoElement = document.getElementById('stock-info');
+    const availableStockElement = document.getElementById('available-stock');
+    let currentStockLimit = 0;
 
+    // Function to update the maximum available quantity
+    function updateMaxQuantity(stockAmount) {
+      currentStockLimit = stockAmount;
+
+      // Show stock information
+      availableStockElement.textContent = stockAmount;
+      stockInfoElement.style.display = 'block';
+
+      // If current quantity is greater than stock, adjust it
+      if (parseInt(qtyInput.value) > stockAmount) {
+      qtyInput.value = stockAmount;
+      }
+
+      // Disable increment button if we reach the limit
+      if (parseInt(qtyInput.value) >= stockAmount) {
+      increaseBtn.disabled = true;
+      increaseBtn.classList.add('opacity-50');
+      } else {
+      increaseBtn.disabled = false;
+      increaseBtn.classList.remove('opacity-50');
+      }
+    }
+
+    // Event for size buttons
     sizeButtons.forEach(button => {
       button.addEventListener('click', function () {
-        // Remover la clase activa de todos los botones
-        sizeButtons.forEach(btn => btn.classList.remove('btn-primary'));
-        sizeButtons.forEach(btn => btn.classList.add('btn-outline-secondary'));
+      // Reset styles for all buttons
+      sizeButtons.forEach(btn => {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-outline-secondary');
+      });
 
-        // Agregar la clase activa al botón seleccionado
-        this.classList.remove('btn-outline-secondary');
-        this.classList.add('btn-primary');
+      // Apply style to selected button
+      this.classList.remove('btn-outline-secondary');
+      this.classList.add('btn-primary');
 
-        // Establecer la talla seleccionada en el campo oculto
-        selectedSizeInput.value = this.getAttribute('data-size');
+      // Save selected size
+      const selectedSize = this.getAttribute('data-size');
+      selectedSizeInput.value = selectedSize;
 
-        // Habilitar el botón de agregar al carrito
+      // Get and update available stock
+      const stockAmount = parseInt(this.getAttribute('data-stock'));
+      updateMaxQuantity(stockAmount);
+
+      // Enable/disable button based on stock
+      if (stockAmount > 0) {
         addToCartButton.disabled = false;
+        qtyInput.disabled = false;
+        reduceBtn.disabled = false;
+
+        // Reset quantity to 1 when changing size
+        qtyInput.value = 1;
+      } else {
+        addToCartButton.disabled = true;
+        qtyInput.disabled = true;
+        reduceBtn.disabled = true;
+        increaseBtn.disabled = true;
+        stockInfoElement.innerHTML = '<span class="text-danger">Agotado</span>';
+      }
       });
     });
+    // Validar antes de enviar el formulario
+    document.querySelector('form[name="addtocart-form"]').addEventListener('submit', function (e) {
+      if (!selectedSizeInput.value) {
+      e.preventDefault();
+      alert('Por favor, selecciona una talla antes de agregar al carrito.');
+      return false;
+      }
 
-    // Deshabilitar el botón de agregar al carrito si no hay talla seleccionada
-    addToCartButton.disabled = !selectedSizeInput.value;
-  });
+      if (parseInt(qtyInput.value) > currentStockLimit) {
+      e.preventDefault();
+      alert(`Solo hay ${currentStockLimit} unidades disponibles para esta talla.`);
+      qtyInput.value = currentStockLimit;
+      return false;
+      }
+    });
+    });
   </script>
 @endpush

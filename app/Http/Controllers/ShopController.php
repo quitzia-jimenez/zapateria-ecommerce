@@ -42,32 +42,41 @@ class ShopController extends Controller
                 $o_order = "DESC";
                 break;
         }
-        $categories = Category::orderBy('name','ASC')->get();
+        $categories = Category::orderBy('name', 'ASC')->get();
         $sizes = Size::orderBy('size', 'ASC')->get(); // Cargar todas las tallas
 
-        $products = Product::where(function($query) use($f_categories){
-            $query->whereIn('category_id',explode(",",$f_categories))->orWhereRaw("'".$f_categories."' = ''");
+        $products = Product::where(function ($query) use ($f_categories) {
+            $query->whereIn('category_id', explode(",", $f_categories))->orWhereRaw("'" . $f_categories . "' = ''");
         })
-        ->where(function($query) use($min_price,$max_price){
-            $query->whereBetween('regular_price',[$min_price,$max_price])
-                  ->orWhereBetween('sale_price',[$min_price,$max_price]);
-        })
-        ->when($f_size, function ($query, $f_size) {
-            return $query->whereHas('sizes', function ($q) use ($f_size) {
-                $q->where('size', $f_size);
-            });
-        })
+            ->where(function ($query) use ($min_price, $max_price) {
+                $query->whereBetween('regular_price', [$min_price, $max_price])
+                    ->orWhereBetween('sale_price', [$min_price, $max_price]);
+            })
+            ->when($f_size, function ($query, $f_size) {
+                return $query->whereHas('sizes', function ($q) use ($f_size) {
+                    $q->where('size', $f_size);
+                });
+            })
 
-        ->orderBy($o_column,$o_order)->paginate($sizep);
-        return view('catalogo', compact('products','sizep', 'order', 'categories','f_categories','min_price','max_price',  'sizes', 'f_size'));
+            ->orderBy($o_column, $o_order)->paginate($sizep);
+
+        return view('catalogo', compact('products', 'sizep', 'order', 'categories', 'f_categories', 'min_price', 'max_price', 'sizes', 'f_size'));
     }
 
     public function product_details($product_slug)
     {
-        $product = Product :: where('slug', $product_slug)->first();
-        $rproducts = Product::where('slug','<>',$product_slug)->get()->take(8);
+        $product = Product::where('slug', $product_slug)->first();
+        $rproducts = Product::where('slug', '<>', $product_slug)->get()->take(8);
         $sizes = $product->sizes;
-        return view('details',compact('product', 'rproducts', 'sizes'));
+
+        $productF = Product::with([
+            'category',
+            'sizes' => function ($query) {
+                $query->withPivot('quantity');
+            }
+        ])->where('slug', $product_slug)->firstOrFail();
+
+        return view('details', compact('productF','product', 'rproducts', 'sizes'));
 
     }
 }
