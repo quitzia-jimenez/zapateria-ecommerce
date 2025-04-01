@@ -28,8 +28,21 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        Cart::instance('cart')->add($request->id, $request->name, $request->quantity, $request->price)->associate('App\Models\Product');
-        return redirect()->back();
+        // Verifica si el campo 'size' está presente en el Request
+        if (!$request->has('size') || empty($request->size)) {
+            return redirect()->back()->with('error', 'Por favor selecciona una talla antes de agregar al carrito.');
+        }
+
+        // Agrega el producto al carrito con la talla seleccionada
+        Cart::instance('cart')->add(
+            $request->id,
+            $request->name,
+            $request->quantity,
+            $request->price,
+            ['size' => $request->size] // Agregar la talla como una opción
+        )->associate('App\Models\Product');
+
+        return redirect()->back()->with('success', 'Producto agregado al carrito con éxito.');
     }
 
     public function increse_cart_quantity($rowId)

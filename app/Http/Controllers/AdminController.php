@@ -214,12 +214,15 @@ class AdminController extends Controller
         $sizes = $request->sizes;
         $quantities = $request->quantities;
         $sizeQuantities = [];
+
         foreach ($sizes as $sizeId) {
-            if (!isset($quantities[$sizeId])) {
-                return redirect()->back()->withErrors(['quantities' => 'Las cantidades no coinciden con las tallas seleccionadas']);
+            if (!isset($quantities[$sizeId]) || $quantities[$sizeId] < 1) {
+                return redirect()->back()->withErrors(['quantities' => 'Cada talla seleccionada debe tener una cantidad válida.']);
             }
             $sizeQuantities[$sizeId] = ['quantity' => $quantities[$sizeId]];
         }
+
+        // Sincroniza las tallas y cantidades con el producto
         $product->sizes()->sync($sizeQuantities);
 
         return redirect()->route('admin.products')->with('status', 'El producto se creo con exito!');

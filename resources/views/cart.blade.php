@@ -97,9 +97,9 @@
         <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: #434343;">{{$item->name}}
         </h4>
         <ul class="shopping-cart__product-item__options"
-            style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #7a7a7a;">
-            <li>Talla: {{ $item->options->size ?? 'N/A' }}</li>
-        </ul>
+        style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #7a7a7a;">
+        <li>Talla: {{ $item->options->size ?? 'N/A' }}</li>
+       </ul>
         </div>
         </td>
         <td style="padding: 1rem; vertical-align: middle; border-bottom: 1px solid #eee;">

@@ -116,12 +116,14 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="sizes[]" id="size_{{ $size->id }}" value="{{ $size->id }}" onchange="toggleQuantityInput({{ $size->id }})">
                                     <label class="form-check-label" for="size_{{ $size->id }}">{{ $size->size }}</label>
+
                                     <input type="number" name="quantities[{{ $size->id }}]" id="quantity_{{ $size->id }}" class="form-control" placeholder="Cantidad" style="display: none; margin-top: 10px;" min="0">
                                 </div>
+                                @error('sizes') <span class="text-danger">{{ $message }}</span> @enderror
                             @endforeach
                         </div>
                     </div>
-                    @error('sizes') <span class="text-danger">{{ $message }}</span> @enderror
+                   
                     
                     
 
